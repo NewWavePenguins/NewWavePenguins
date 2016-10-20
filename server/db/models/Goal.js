@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var goalSchema = new Schema({
-  completed:   Boolean,
-  title:   String,
+  completed: Boolean,
+  title: String,
   userId: Number
 });
 
