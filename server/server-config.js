@@ -12,6 +12,7 @@ var Task = require('./db/models/Task');
 // server
 var app = express();
 
+app.use(bodyParser.json());
 // middleware
 //app.use();
 
@@ -19,6 +20,9 @@ var app = express();
 app.get('/', handler.getHandler);
 // app.get('/', handler.getHandler);
 // app.get('/', handler.getHandler);
+
+app.post('/', handler.postHandler);
+
 
 // listen
 app.set('port', 3000);
