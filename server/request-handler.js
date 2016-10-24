@@ -14,7 +14,7 @@ exports.getHandler = function(req, res) {
   })
 };
 
-exports.postHandler = function(req, res) {
+exports.signupHandler = function(req, res) {
   var username = req.body.username;
   var password = req.body.username;
   var firstName = req.body.firstName;
