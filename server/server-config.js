@@ -21,7 +21,10 @@ app.get('/', handler.getHandler);
 // app.get('/', handler.getHandler);
 // app.get('/', handler.getHandler);
 
-app.post('/', handler.postHandler);
+//app.post('/', handler.postHandler);
+
+app.get('/addGoal', handler.getGoal);
+app.post('/addGoal', handler.addGoal);
 
 
 // listen
