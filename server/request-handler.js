@@ -2,6 +2,7 @@
 var db = require('./db/config')
 var User = require('./db/models/User');
 var Goal = require('./db/models/Goal');
+var Task = require('./db/models/Task');
 
 
 
@@ -60,5 +61,38 @@ exports.addGoal = function(req, res) {
   })
 
 }
+
+//Add new task
+exports.addTask = function(req, res) {
+  var title = req.body.title;
+  var parentId = req.body.parentId;
+  var newTask = new Task({
+    title: title,
+    parentId: parentId,
+  });
+  newTask.save(function(err, newTask) {
+    if (err) { throw err; }
+    else { res.status(200).send(newTask)}
+  })
+}
+
+// Make task complete or incomplete
+exports.toggleTask = function(req, res) {
+  var taskId = req.body.taskId;
+
+  var ourTask = Task.findOne({ _id: taskId}).exec(function(err, task) {
+    if (err) {throw err;}
+    else {
+      var ourTask = task;
+      Task.update({ _id: taskId}, {completed: !ourTask.completed}, function(err, result) {
+        if (err) {throw err;}
+        else { res.status(200).send(result);}
+      });
+    }
+  });
+
+}
+
+
 
 

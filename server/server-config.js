@@ -23,8 +23,12 @@ app.get('/', handler.getHandler);
 
 //app.post('/', handler.postHandler);
 
+app.post('/addTask', handler.addTask);
+
 app.get('/addGoal', handler.getGoal);
 app.post('/addGoal', handler.addGoal);
+
+app.put('/toggleTask', handler.toggleTask);
 
 
 // listen
