@@ -90,7 +90,6 @@ exports.toggleTask = function(req, res) {
       });
     }
   });
-
 }
 
 exports.makeTaskComplete = function(req, res) {
@@ -101,6 +100,7 @@ exports.makeTaskComplete = function(req, res) {
   });
 }
 
+
 exports.makeGoalComplete = function(req, res) {
   var goalId = req.body.goalId;
   Goal.update({ _id: goalId}, {completed: true}, function(err, result) {
@@ -108,6 +108,22 @@ exports.makeGoalComplete = function(req, res) {
     else { res.status(200).send(result);}
   });
 }
+
+exports.getTasksOfGoal = function(req, res) {
+
+  Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
+    if (err) {throw err;}
+    else { res.status(200).send(tasks); }
+  });
+
+}
+
+  // Goal.find({userId: userId}).exec(function (err, goals){
+  //   if (err) { throw err }
+  //   else {
+  //     res.status(200).send(goals);
+  //   }
+  // })
 
 
 

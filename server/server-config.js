@@ -32,7 +32,7 @@ app.put('/toggleTask', handler.toggleTask);
 app.put('/makeTaskComplete', handler.makeTaskComplete);
 app.put('/makeGoalComplete', handler.makeGoalComplete);
 
-//app.get('/getTasksOfGoal', handler.getTasksOfGoal);
+app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
 
 
 
