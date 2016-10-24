@@ -93,6 +93,22 @@ exports.toggleTask = function(req, res) {
 
 }
 
+exports.makeTaskComplete = function(req, res) {
+  var taskId = req.body.taskId;
+  Task.update({ _id: taskId}, {completed: true}, function(err, result) {
+    if (err) {throw err;}
+    else { res.status(200).send(result);}
+  });
+}
+
+exports.makeGoalComplete = function(req, res) {
+  var goalId = req.body.goalId;
+  Goal.update({ _id: goalId}, {completed: true}, function(err, result) {
+    if (err) {throw err;}
+    else { res.status(200).send(result);}
+  });
+}
+
 
 
 
