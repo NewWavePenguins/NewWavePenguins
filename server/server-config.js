@@ -18,20 +18,12 @@ app.use(bodyParser.json());
 
 //routes
 app.get('/', handler.getHandler);
-//app.get('/getGoals', handler.getGoals);
-// app.get('/', handler.getHandler);
-
-//app.post('/', handler.postHandler);
-
+app.get('/getGoals/:userId', handler.getGoals);
 app.post('/addTask', handler.addTask);
-
-app.get('/addGoal', handler.getGoal);
 app.post('/addGoal', handler.addGoal);
-
 app.put('/toggleTask', handler.toggleTask);
 app.put('/makeTaskComplete', handler.makeTaskComplete);
 app.put('/makeGoalComplete', handler.makeGoalComplete);
-
 app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
 
 

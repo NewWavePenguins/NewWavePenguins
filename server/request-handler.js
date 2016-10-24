@@ -17,8 +17,8 @@ exports.getHandler = function(req, res) {
 };
 
 // Fetch goals for a given user
-exports.getGoal = function(req, res) {
-  var userId = '580e4659df899e077985f83a';
+exports.getGoals = function(req, res) {
+  var userId = req.params.userId;
   Goal.find({userId: userId}).exec(function (err, goals){
     if (err) { throw err }
     else {
@@ -26,6 +26,7 @@ exports.getGoal = function(req, res) {
     }
   })
 };
+
 
 // Add new user
 exports.signup = function(req, res) {
