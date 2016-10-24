@@ -111,20 +111,18 @@ exports.makeGoalComplete = function(req, res) {
 }
 
 exports.getTasksOfGoal = function(req, res) {
-
   Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
     if (err) {throw err;}
     else { res.status(200).send(tasks); }
   });
-
 }
 
-  // Goal.find({userId: userId}).exec(function (err, goals){
-  //   if (err) { throw err }
-  //   else {
-  //     res.status(200).send(goals);
-  //   }
-  // })
+exports.getTasksOfTask = function(req, res) {
+  Task.find({parentId: req.params.parentId}).exec(function(err, tasks){
+    if (err) {throw err;}
+    else { res.status(200).send(tasks); }
+  });
+}
 
 
 

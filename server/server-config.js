@@ -25,6 +25,7 @@ app.put('/toggleTask', handler.toggleTask);
 app.put('/makeTaskComplete', handler.makeTaskComplete);
 app.put('/makeGoalComplete', handler.makeGoalComplete);
 app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
+app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
 
 
 
