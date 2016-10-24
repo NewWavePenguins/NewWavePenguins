@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var taskSchema = new Schema({
-  completed:   Boolean,
+  completed:   {type: Boolean, default: false},
   title:   String,
-  parentId: Number
+  parentId: String
 });
 
 var Task = mongoose.model('Task', taskSchema);

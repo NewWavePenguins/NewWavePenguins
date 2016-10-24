@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var goalSchema = new Schema({
-  completed: Boolean,
+  completed: {type: Boolean, default: false},
   title: String,
-  userId: Number
+  userId: String
 });
 
 var Goal = mongoose.model('Goal', goalSchema);
