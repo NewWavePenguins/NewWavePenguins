@@ -78,7 +78,7 @@ exports.addTask = function(req, res) {
 }
 
 // Make task complete or incomplete
-exports.toggleTask = function(req, res) {
+exports.toggleTaskCompleted = function(req, res) {
   var taskId = req.body.taskId;
 
   var ourTask = Task.findOne({ _id: taskId}).exec(function(err, task) {
