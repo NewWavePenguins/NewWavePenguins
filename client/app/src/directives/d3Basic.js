@@ -48,12 +48,11 @@
           //   return scope.render(newVals[0]);
           // }, true);
 
-
-          // ------
+          // -------------------------
           root = scope.data[0];
           root.x0 = height / 2;
           root.y0 = 0;
-          // ------
+          // -------------------------
 
           // Toggle children on click.
           var click = function (d) {

@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('myApp.controllers')
-    .controller('DemoCtrl', function($scope){
+    .controller('d3Ctrl', function($scope){
       $scope.title = "GoalTree";
 
       $scope.d3Data = [
