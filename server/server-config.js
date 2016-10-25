@@ -11,6 +11,7 @@ var Task = require('./db/models/Task');
 
 // server
 var app = express();
+app.use(express.static(__dirname + '/../client'));
 
 app.use(bodyParser.json());
 // middleware
