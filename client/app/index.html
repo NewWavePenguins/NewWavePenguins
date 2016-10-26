@@ -8,7 +8,7 @@
   </head>
   <body ng-app="myApp">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">Welcome to GoalTree (Placeholder)</div>
+      <div class="col-md-6 col-md-offset-3">Welcome to GoalTree</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3"><hr></div>
@@ -16,12 +16,21 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3" ng-controller="d3Ctrl">
         <!--<span>{{title}}</span>-->
+        <div class="curr-node">
+          <div>
+            
+          </div>
+          <div class="add-task">
+            <span class="add-task-title">Add New Task</span><br>            
+            <span>Title: </span><br>
+            <input type="text" ng-model="newTask.title"><button ng-click="addTask()">Add</button>
+          </div>
+          <div>
+            
+          </div>
+        </div>
+        
         <d3-tree data="d3Data" on-click="d3OnClick(item)"></d3-tree>
-        Task Title: <br>
-        <input type="text" ng-model="newTask.title">
-        <br>
-        <button ng-click="addTask()">Add</button>
-        <br>
       </div>
     </div>
 
@@ -29,8 +38,8 @@
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
     <script src="src/app.js"></script>
     <script src="src/services/d3.js"></script>
-    <script src="src/controllers/d3Ctrl.js"></script>
     <script src="src/directives/d3Basic.js"></script>
+    <script src="src/controllers/d3Ctrl.js"></script>
 
   </body>
 </html>

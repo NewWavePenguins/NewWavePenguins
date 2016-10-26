@@ -17,3 +17,29 @@
   stroke: #ccc;
   stroke-width: 2px;
 }
+
+.curr-node {
+	border: solid;
+	border-width: 2px;
+	width: 300px;
+	position: relative;
+	background-color: lightblue;
+
+}
+
+.add-task {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	/*position: absolute;*/
+}
+
+.add-task-title {
+	font-weight: bold;
+
+}
+
+.add-task-title,span {
+	padding-top: 5px;
+
+}
