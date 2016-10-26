@@ -4,29 +4,36 @@
     <title>d3 and Angular</title>
     <meta name="description" content="d3 and Angular">
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+    <script src="src/app.js"></script>
+    <script src="src/services/d3.js"></script>
+    <script src="src/directives/d3Basic.js"></script>
+    <script src="src/controllers/d3Ctrl.js"></script>
    
   </head>
   <body ng-app="myApp">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">Welcome to GoalTree</div>
+      <div class="col-md-6 col-md-offset-3">GoalTree</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3"><hr></div>
     </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3" ng-controller="d3Ctrl">
-        <!--<span>{{title}}</span>-->
         <div class="curr-node">
-          <div>
-            
+          <div class="curr-node-title">
+            {{currNode.title}}
           </div>
           <div class="add-task">
-            <span class="add-task-title">Add New Task</span><br>            
-            <span>Title: </span><br>
+            <span class="add-task-title"> -- Add Subtask</span><br>            
+            <span>Title: </span>
             <input type="text" ng-model="newTask.title"><button ng-click="addTask()">Add</button>
           </div>
-          <div>
-            
+          <div class="task-complete-checkbox">
+            <form>
+              -- Task Completed? <input type="checkbox" ng-model="currNode.completed">
+            </form>   
           </div>
         </div>
         
@@ -34,12 +41,6 @@
       </div>
     </div>
 
-   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>   
-   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
-    <script src="src/app.js"></script>
-    <script src="src/services/d3.js"></script>
-    <script src="src/directives/d3Basic.js"></script>
-    <script src="src/controllers/d3Ctrl.js"></script>
 
   </body>
 </html>

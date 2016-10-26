@@ -1,3 +1,7 @@
+html {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
 .node {
   cursor: pointer;
 }
@@ -34,12 +38,16 @@
 	/*position: absolute;*/
 }
 
-.add-task-title {
+.curr-node-title {
 	font-weight: bold;
-
 }
 
 .add-task-title,span {
 	padding-top: 5px;
+}
 
+.task-complete-checkbox {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
 }
