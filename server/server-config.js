@@ -12,7 +12,7 @@ var Task = require('./db/models/Task');
 
 // server
 var app = express();
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/../client/app'));
 
 // middleware
 app.use(bodyParser.json());
@@ -20,7 +20,7 @@ app.use(stormpath.init(app, {
   web: {
     spa: {
       enabled: true,
-      view: __dirname + '/client/index.html'
+      view: __dirname + '/../client/app/index.html'
     }
   }
 }));
