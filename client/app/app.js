@@ -2,20 +2,7 @@ angular.module('greenfield', ['ui.router','stormpath', 'stormpath.templates'])
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
-  // $routeProvider
-  //   .when('/', {
-  //     templateUrl: 'app/views/home.html',
-  //     controller: 'app/controllers/home.js'
-  //   })
-  //   .otherwise({
-  //     redirectTo: '/'
-  //   });
   $stateProvider
-  // .state('homeState' = {
-  //   name: 'home',
-  //   url: '/home',
-  //   template: '<h3>Its the UI-Router hello world app!</h3>'
-  // }
 
   .state('home', {
   url: '/home',
@@ -33,7 +20,12 @@ angular.module('greenfield', ['ui.router','stormpath', 'stormpath.templates'])
   templateUrl: 'app/views/login.html'
 })
 
-});
+.state('registration', {
+url: '/registration',
+templateUrl: 'app/views/registration.html'
+})
+
+})
 
 //   .run(function($stormpath) {
 //   $stormpath.uiRouter({
