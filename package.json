@@ -17,14 +17,17 @@
   },
   "homepage": "",
   "dependencies": {
+    "angular-ui-router": "^0.3.1",
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
     "express": "^4.14.0",
     "express-partials": "^0.3.0",
+    "express-stormpath": "^3.1.5",
     "mocha": "^3.1.2",
     "mongoose": "^4.6.5",
     "nodemon": "^1.11.0",
-    "request": "^2.75.0"
+    "request": "^2.75.0",
+    "stormpath-spa-dev-server": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",
