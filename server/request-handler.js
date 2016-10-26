@@ -124,33 +124,39 @@ exports.getTasksOfTask = function(req, res) {
   });
 }
 
-exports.getElemsOfGoal = function(req, res) {
-//s
-  var out = [];
-  Goal.find({_id: req.params.id}).exec(goalSearchCB);
+// exports.getElemsOfGoal = function(req, res) {
+//   //set an empty output that will be populated with all descendandts of a given goalId
+//   var out = [];
 
-  function goalSearchCB(err, el){
-    if (err) { throw err; }
-    else {
-      res.status(200);
-      out.push(el[0]);
+//   Goal.find({_id: req.params.id}).exec(goalSearchCB);
 
-      var goalTasks = [];
-      //any tasks with this goal?
+//   function goalSearchCB(err, el){
+//     if (err) { throw err; }
+//     else {
+//       res.status(200);
+//       //adds goal to output
+//       out.push(el[0]);
 
-      // Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
-      //   if (err) {throw err;}
-      //   else { res.status(200).send(tasks); }
-      // });
+//       function addChildTasks(id) {
 
-      res.send(out);
-    }
-  };
+//       }
 
+//       Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
+//         if (err) {throw err;}
+//         else {
+//           tasks.forEach(function(task) {
+//             out.push(task);
+//             addChildTasks(task.id);
+//           })
+//         }
+//       });
 
+//       out = goalTasks.length;
 
-//e
-}
+//       res.send(out);
+//     }
+//   };
+// }
 
 
 
