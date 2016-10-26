@@ -34,18 +34,20 @@
 
           // on window resize, re-render d3 canvas
           window.onresize = function() {
-            return scope.$apply();
+            return scope.render(scope.data[0]);
           };
+
           scope.$watch(function(){
               return angular.element(window)[0].innerWidth;
             }, function(){
               return scope.render(scope.data[0]);
             }
           );
-
-          // // watch for data changes and re-render
-          // scope.$watch('data', function(newVals, oldVals) {
-          //   return scope.render(newVals[0]);
+          
+          // watch for data changes and re-render
+          // scope.$watch('data', function(data) {
+          //   // console.log(newVals , oldVals)
+          //   return scope.render(data[0]);
           // }, true);
 
           // -------------------------
@@ -160,9 +162,9 @@
               });
             }
 
-            scope.render(root);
+          scope.render(root);
 
-            d3.select(self.frameElement).style("height", "500px");
+          // d3.select(self.frameElement).style("height", "500px");
 
         } // end of link
       }; // end of return

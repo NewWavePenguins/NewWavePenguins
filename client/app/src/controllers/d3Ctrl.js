@@ -39,7 +39,7 @@
 
       $scope.addTask = function () {
         $scope.d3Data[0].children.push({"title": $scope.newTask.title});
-        console.log($scope.d3Data)
+        // console.log($scope.d3Data)
       };
     });
 
