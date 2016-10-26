@@ -1,7 +1,11 @@
 angular.module('myApp.services',[])
 .factory('Tasks', function($http) {
-  var addOne = function() {
 
+  var addOne = function() {
+    return $http({
+    	method: 'GET',
+    	url: '/getAll'
+    })
   };
 
   return {
