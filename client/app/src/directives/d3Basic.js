@@ -31,13 +31,13 @@ angular.module('myApp.directives')
 
       // on window resize, re-render d3 canvas
       window.onresize = function() {
-        return scope.render(scope.data[0]);
+        return scope.render(scope.data);
       };
 
       scope.$watch(function(){
           return angular.element(window)[0].innerWidth;
         }, function(){
-          return scope.render(scope.data[0]);
+          return scope.render(scope.data);
         }
       );
       
@@ -48,7 +48,7 @@ angular.module('myApp.directives')
       // }, true);
 
       // Render the current 
-      root = scope.data[0];
+      root = scope.data;
       root.x0 = height / 2;
       root.y0 = 0;
       // -------------------------
@@ -93,7 +93,8 @@ angular.module('myApp.directives')
 
           nodeEnter.append("circle")
             .attr("r", 1e-6)
-            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+            .style("fill", "#fff");
+            // .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
           nodeEnter.append("text")
             .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
@@ -109,7 +110,13 @@ angular.module('myApp.directives')
 
           nodeUpdate.select("circle")
             .attr("r", 10)
-            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+            .style("fill", function(d) { 
+              if (d.completed) {
+                return "green";
+              } else { 
+                return "#fff";
+              } 
+            });
 
           nodeUpdate.select("text")
             .style("fill-opacity", 1);
