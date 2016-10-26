@@ -4,7 +4,8 @@ angular.module('myApp', [
   'stormpath',
   'stormpath.templates',
   'myApp.controllers',
-  'myApp.directives'
+  'myApp.directives',
+  'myApp.services'
   ])
 
   .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {

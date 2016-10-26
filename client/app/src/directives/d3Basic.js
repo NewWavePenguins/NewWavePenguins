@@ -93,7 +93,8 @@ angular.module('myApp.directives')
 
           nodeEnter.append("circle")
             .attr("r", 1e-6)
-            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+            .style("fill", "#fff");
+            // .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
           nodeEnter.append("text")
             .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
@@ -109,7 +110,13 @@ angular.module('myApp.directives')
 
           nodeUpdate.select("circle")
             .attr("r", 10)
-            .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+            .style("fill", function(d) { 
+              if (d.completed) {
+                return "green";
+              } else { 
+                return "#fff";
+              } 
+            });
 
           nodeUpdate.select("text")
             .style("fill-opacity", 1);
