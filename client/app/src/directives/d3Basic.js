@@ -31,13 +31,13 @@ angular.module('myApp.directives')
 
       // on window resize, re-render d3 canvas
       window.onresize = function() {
-        return scope.render(scope.data[0]);
+        return scope.render(scope.data);
       };
 
       scope.$watch(function(){
           return angular.element(window)[0].innerWidth;
         }, function(){
-          return scope.render(scope.data[0]);
+          return scope.render(scope.data);
         }
       );
       
@@ -48,7 +48,7 @@ angular.module('myApp.directives')
       // }, true);
 
       // Render the current 
-      root = scope.data[0];
+      root = scope.data;
       root.x0 = height / 2;
       root.y0 = 0;
       // -------------------------

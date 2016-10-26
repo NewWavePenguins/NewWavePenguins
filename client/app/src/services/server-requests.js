@@ -1,15 +1,17 @@
 angular.module('myApp.services',[])
 .factory('Tasks', function($http) {
 
-  var addOne = function() {
+  var getTasksTree = function() {
     return $http({
     	method: 'GET',
-    	url: '/getAll'
+    	url: '/getTasksTree'
+    }).then(function(res){
+    	return res.data;
     })
   };
 
   return {
-  	addOne: addOne
+  	getTasksTree: getTasksTree
   }
 
 });

@@ -1,9 +1,12 @@
 
 angular.module('myApp.controllers')
-  .controller('d3Ctrl', function($scope){
+  .controller('d3Ctrl', function($scope, Tasks){
 
-    $scope.d3Data = [
-      {
+    // Tasks.getTasksTree().then(function(tasksTree) {
+    //   $scope.d3Data = tasksTree;
+    // });
+
+    $scope.d3Data = {
         "id": 12,
         "title": "Graduate from HR!!!",
         "completed": false,
@@ -34,18 +37,17 @@ angular.module('myApp.controllers')
             "children": []
           }
         ]
-      }
-    ];
+      };
 
-    $scope.currNode = $scope.d3Data[0];
-    
+    $scope.currNode = $scope.d3Data;
+
     $scope.d3OnClick = function(item){
       $scope.currNode = item;
       $scope.$apply();
     };
 
     $scope.addTask = function () {
-      $scope.d3Data[0].children[0].children.push({"title": $scope.newTask.title});
+      $scope.d3Data.children[0].children.push({"title": $scope.newTask.title});
       // console.log($scope.d3Data)
     };
   });
