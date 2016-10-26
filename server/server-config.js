@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var handler = require('./request-handler');
+var stormpath = require('express-stormpath');
 
 
 var db = require('./db/config');
@@ -13,9 +14,16 @@ var Task = require('./db/models/Task');
 var app = express();
 app.use(express.static(__dirname + '/../client'));
 
-app.use(bodyParser.json());
 // middleware
-//app.use();
+app.use(bodyParser.json());
+app.use(stormpath.init(app, {
+  web: {
+    spa: {
+      enabled: true,
+      view: __dirname + '/client/index.html'
+    }
+  }
+}));
 
 //routes
 app.get('/', handler.getHandler);
@@ -33,6 +41,12 @@ app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
 // listen
 app.set('port', 3000);
 
-app.listen(app.get('port'), function () {
-  console.log('Listening on port ' + app.get('port') );
+app.on('stormpath.ready', function () {
+  app.listen(app.get('port'), function () {
+    console.log('Listening on port ' + app.get('port') );
+  });
 });
+
+// app.listen(app.get('port'), function () {
+//   console.log('Listening on port ' + app.get('port') );
+// });

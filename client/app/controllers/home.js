@@ -1,4 +1,4 @@
-angular.module('home.controllers', [])
-.controller('homeController', function($scope, $http) {
-  
-});
+angular.module('home.controllers', ['ui.router'])
+// .controller('homeController', function($scope, $http) {
+//
+// });
