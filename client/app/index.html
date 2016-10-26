@@ -1,0 +1,36 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+    <title>d3 and Angular</title>
+    <meta name="description" content="d3 and Angular">
+    <link rel="stylesheet" href="styles/styles.css">
+   
+  </head>
+  <body ng-app="myApp">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">Welcome to GoalTree (Placeholder)</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3"><hr></div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3" ng-controller="d3Ctrl">
+        <!--<span>{{title}}</span>-->
+        <d3-tree data="d3Data" on-click="d3OnClick(item)"></d3-tree>
+        Task Title: <br>
+        <input type="text" ng-model="newTask.title">
+        <br>
+        <button ng-click="addTask()">Add</button>
+        <br>
+      </div>
+    </div>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>   
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+    <script src="src/app.js"></script>
+    <script src="src/services/d3.js"></script>
+    <script src="src/controllers/d3Ctrl.js"></script>
+    <script src="src/directives/d3Basic.js"></script>
+
+  </body>
+</html>
