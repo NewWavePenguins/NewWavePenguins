@@ -30,12 +30,12 @@ app.get('/', handler.getHandler);
 app.get('/getGoals/:userId', handler.getGoals);
 app.post('/addTask', handler.addTask);
 app.post('/addGoal', handler.addGoal);
-app.put('/toggleTask', handler.toggleTask);
+app.put('/toggleTaskCompleted', handler.toggleTaskCompleted);
 app.put('/makeTaskComplete', handler.makeTaskComplete);
 app.put('/makeGoalComplete', handler.makeGoalComplete);
 app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
 app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
-
+app.get('/elemsOfGoal/:id', handler.getElemsOfGoal);
 
 
 // listen

@@ -124,6 +124,34 @@ exports.getTasksOfTask = function(req, res) {
   });
 }
 
+exports.getElemsOfGoal = function(req, res) {
+//s
+  var out = [];
+  Goal.find({_id: req.params.id}).exec(goalSearchCB);
+
+  function goalSearchCB(err, el){
+    if (err) { throw err; }
+    else {
+      res.status(200);
+      out.push(el[0]);
+
+      var goalTasks = [];
+      //any tasks with this goal?
+
+      // Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
+      //   if (err) {throw err;}
+      //   else { res.status(200).send(tasks); }
+      // });
+
+      res.send(out);
+    }
+  };
+
+
+
+//e
+}
+
 
 
 
