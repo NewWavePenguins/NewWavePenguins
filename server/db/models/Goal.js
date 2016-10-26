@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var goalSchema = new Schema({
   completed: {type: Boolean, default: false},
   title: String,
-  userId: String
+  userId: String,
+  tasks: [String],
 });
 
 var Goal = mongoose.model('Goal', goalSchema);

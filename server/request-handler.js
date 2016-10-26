@@ -38,7 +38,8 @@ exports.signup = function(req, res) {
     username: username,
     password: password,
     firstName: firstName,
-    lastName: lastName
+    lastName: lastName,
+    goals: [],
   });
   newUser.save(function(err, newUser) {
     if (err) { throw err }
@@ -58,9 +59,15 @@ exports.addGoal = function(req, res) {
   });
   newGoal.save(function(err, newGoal) {
     if (err) { throw err; }
-    else { res.status(200).send(newGoal); }
+    else {
+      res.status(200).send(newGoal);
+      User.findOne({_id: userId}, function(err, user) {
+        if (err) throw err;
+        user.goals.push(newGoal._id);
+        user.save();
+      })
+    }
   })
-
 }
 
 //Add new task
@@ -78,7 +85,7 @@ exports.addTask = function(req, res) {
 }
 
 // Make task complete or incomplete
-exports.toggleTask = function(req, res) {
+exports.toggleTaskCompleted = function(req, res) {
   var taskId = req.body.taskId;
 
   var ourTask = Task.findOne({ _id: taskId}).exec(function(err, task) {
@@ -123,6 +130,40 @@ exports.getTasksOfTask = function(req, res) {
     else { res.status(200).send(tasks); }
   });
 }
+
+// exports.getElemsOfGoal = function(req, res) {
+//   //set an empty output that will be populated with all descendandts of a given goalId
+//   var out = [];
+
+//   Goal.find({_id: req.params.id}).exec(goalSearchCB);
+
+//   function goalSearchCB(err, el){
+//     if (err) { throw err; }
+//     else {
+//       res.status(200);
+//       //adds goal to output
+//       out.push(el[0]);
+
+//       function addChildTasks(id) {
+
+//       }
+
+//       Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
+//         if (err) {throw err;}
+//         else {
+//           tasks.forEach(function(task) {
+//             out.push(task);
+//             addChildTasks(task.id);
+//           })
+//         }
+//       });
+
+//       out = goalTasks.length;
+
+//       res.send(out);
+//     }
+//   };
+// }
 
 
 
