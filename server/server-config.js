@@ -28,13 +28,14 @@ app.use(stormpath.init(app, {
 //routes
 app.get('/', handler.getHandler);
 app.get('/getGoals/:userId', handler.getGoals);
+app.post('/signup', handler.signup);
 app.post('/addTask', handler.addTask);
 app.post('/addGoal', handler.addGoal);
 app.put('/toggleTaskCompleted', handler.toggleTaskCompleted);
 app.put('/makeTaskComplete', handler.makeTaskComplete);
 app.put('/makeGoalComplete', handler.makeGoalComplete);
 app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
-app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
+app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
 // app.get('/elemsOfGoal/:id', handler.getElemsOfGoal);
 
 
