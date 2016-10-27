@@ -1,30 +1,4 @@
 <div>
   <h1>Home</h1>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">GoalTree</div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3"><hr></div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3" ng-controller="d3Ctrl">
-      <div class="curr-node">
-        <div class="curr-node-title">
-          {{currNode.title}}
-        </div>
-        <div class="add-task">
-          <span class="add-task-title"> -- Add Subtask</span><br>
-          <span>Title: </span>
-          <input type="text" ng-model="newTask.title"><button ng-click="addTask()">Add</button>
-        </div>
-        <div class="task-complete-checkbox">
-          <form>
-            -- Task Completed? <input type="checkbox" ng-model="currNode.completed">
-          </form>
-        </div>
-      </div>
-
-      <d3-tree data="d3Data" on-click="d3OnClick(item)"></d3-tree>
-    </div>
-  </div>
+  <div ui-view></div>
 </div>
