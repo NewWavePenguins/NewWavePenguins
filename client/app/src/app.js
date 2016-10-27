@@ -3,6 +3,7 @@ angular.module('myApp', [
   'ui.router',
   'stormpath',
   'stormpath.templates',
+  'home.controllers',
   'myApp.controllers',
   'myApp.directives',
   'myApp.services'
@@ -17,12 +18,26 @@ angular.module('myApp', [
     templateUrl: '../views/home.html',
     sp: {
       authenticate: true
-    }
-    // controller: homeController
+    },
+    controller: 'homeController'
     // onEnter: function($state) {
-    //   $state.go('main.street');
+    //   $state.go('home.goals');
     // }
   })
+
+    .state('home.goals', {
+     url: '/goals',
+     templateUrl: '../views/goals.html'
+   }) 
+   .state('home.goals.id', {
+     url: '/:id',
+     templateUrl: '../views/goal.html',
+     controller: 'd3Ctrl'
+     // controller: function($scope, $stateParams){
+     //          $scope.person = $scope.contacts[$stateParams.id];
+     //        }
+   }) 
+
     .state('login', {
     url: '/login',
     templateUrl: '../views/login.html'
