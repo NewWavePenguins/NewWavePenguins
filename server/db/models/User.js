@@ -25,7 +25,7 @@ var userSchema = new Schema({
     token: String,
     email: String,
     name: String
-  }
+  },
   firstName:   String,
   lastName:   String,
   goals: [String],

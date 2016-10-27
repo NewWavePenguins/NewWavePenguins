@@ -14,9 +14,6 @@ angular.module('myApp', [
     .state('home', {
     url: '/home',
     templateUrl: '../views/home.html',
-    sp: {
-      authenticate: true
-    },
     controller: 'homeController'
     // onEnter: function($state) {
     //   $state.go('home.goals');
@@ -48,13 +45,6 @@ angular.module('myApp', [
   })
 
   })
-
-  //   .run(function($stormpath) {
-  //   $stormpath.uiRouter({
-  //     loginState: 'login',
-  //     defaultPostLoginState: 'home'
-  //   });
-  // });
 
   // setup dependency injection
   angular.module('d3', []);

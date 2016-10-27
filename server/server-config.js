@@ -3,22 +3,19 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var handler = require('./request-handler');
 var generateTree = require('./tree-generator');
-
-var express      = require('express');
-var partials     = require('express-partials');
-var handler      = require('./request-handler');
-var passport     = require('passport');
-var flash        = require('connect-flash');
-var morgan       = require('morgan');
+var passport = require('passport');
+var flash = require('connect-flash');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
+var bodyParser = require('body-parser');
+var session = require('express-session');
 
 
 var db = require('./db/config');
 var User = require('./db/models/User');
 var Goal = require('./db/models/Goal');
 var Task = require('./db/models/Task');
+require('./passport')(passport)
 
 // server
 var app = express();
@@ -41,7 +38,11 @@ app.get('/test/:goalId', generateTree.generateTree);
 
 app.get('/', handler.getHandler);
 app.get('/getGoals/:userId', handler.getGoals);
-app.post('/signup', handler.signup);
+app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/',
+        failureRedirect : '/#/signup',
+        failureFlash : true
+    }));
 app.post('/addTask', handler.addTask);
 app.post('/addGoal', handler.addGoal);
 app.put('/toggleTaskCompleted', handler.toggleTaskCompleted);
@@ -50,6 +51,11 @@ app.put('/makeGoalComplete', handler.makeGoalComplete);
 app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
 app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
 // app.get('/elemsOfGoal/:id', handler.getElemsOfGoal);
+app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/', // redirect to the secure profile section
+        failureRedirect : '/#/signup', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
 
 
 // listen

@@ -3,7 +3,8 @@ var db = require('./db/config')
 var User = require('./db/models/User');
 var Goal = require('./db/models/Goal');
 var Task = require('./db/models/Task');
-
+var passport = require('passport');
+require('./passport')(passport);
 
 
 //test
@@ -30,23 +31,28 @@ exports.getGoals = function(req, res) {
 
 // Add new user
 exports.signup = function(req, res) {
-  var username = req.body.username;
-  var password = req.body.password;
-  var firstName = req.body.firstName;
-  var lastName = req.body.lastName;
-  var newUser = new User({
-    username: username,
-    password: password,
-    firstName: firstName,
-    lastName: lastName,
-    goals: [],
-  });
-  newUser.save(function(err, newUser) {
-    if (err) { throw err }
-    else {
-      res.status(200).send(newUser);
-    }
-  })
+  passport.authenticate('local-signup', {
+          successRedirect : '/#/home',
+          failureRedirect : '/#/signup',
+          failureFlash : true
+      })
+  // var username = req.body.username;
+  // var password = req.body.password;
+  // var firstName = req.body.firstName;
+  // var lastName = req.body.lastName;
+  // var newUser = new User({
+  //   username: username,
+  //   password: password,
+  //   firstName: firstName,
+  //   lastName: lastName,
+  //   goals: [],
+  // });
+  // newUser.save(function(err, newUser) {
+  //   if (err) { throw err }
+  //   else {
+  //     res.status(200).send(newUser);
+  //   }
+  // })
 }
 
 // Add a new goal to a given user
@@ -80,7 +86,7 @@ exports.addTask = function(req, res) {
   });
   newTask.save(function(err, newTask) {
     if (err) { throw err; }
-    else { 
+    else {
       res.status(200).send(newTask);
       Goal.findOne({_id: parentId}, function(err, goal) {
         if (err || !goal) {
@@ -178,7 +184,3 @@ exports.getTasksOfTask = function(req, res) {
 //     }
 //   };
 // }
-
-
-
-
