@@ -42,9 +42,9 @@ angular.module('myApp', [
     templateUrl: '../views/login.html'
   })
 
-  .state('registration', {
-  url: '/registration',
-  templateUrl: '../views/registration.html'
+  .state('signup', {
+  url: '/signup',
+  templateUrl: '../views/signup.html'
   })
 
   })
