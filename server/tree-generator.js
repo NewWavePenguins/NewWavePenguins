@@ -15,11 +15,7 @@ var getTask = function (taskId) {
       Task.findOne({_id: taskId}, function(err, task) {
       	if (err) {reject(err);}
 		else {
-			task = JSON.stringify(task);
-			task.slice(1, task.length - 1);
-
-			console.log(task);
-			resolve(task);
+			resolve(JSON.stringify(task));
 		}      
       })
 	});
@@ -29,17 +25,39 @@ var getTask = function (taskId) {
 exports.generateTree = function(req, res){
   var goalId = req.params.goalId;
   Goal.findOne({_id: goalId}, function(err, goal){
-  	var promises = [];
-  	for (var i=0; i < goal.tasks.length; i++) {
-  		promises.push(getTask(goal.tasks[i]));
-  	}
+  	
+    // inner recursive function
+    var recursive = function(tasksArray) {
+      // base case
+      if (tasksArray.length === 0) {return [];}
     
-    Promise.all(promises).then(function(taskArray){
-    	goal.tasks = taskArray;
-    	res.status(200).send(goal);
-    }).catch(function(err){
-    	throw err;
-    });
+	  var promises = [];
+	  for (var i=0; i < tasksArray.length; i++) {
+	  	promises.push(getTask(tasksArray[i]));
+	  }	    
+	   Promise.all(promises).then(function(children){
+	   	children.forEach(function(child){
+	   	  child.tasks = recursive(child.tasks);
+	   	})
+	    // this is where recursion happens
+	    recursive(children[i].tasks);
+	    goal.tasks = taskArray;
+	    res.status(200).send(goal);
+	   }).catch(function(err){
+	    throw err;
+	   });
+
+      // loop through tasks array
+      // invode the recursive function on each item
+
+    };
+    
+
+   
+    
+
+   
+    
 
   });
 	
