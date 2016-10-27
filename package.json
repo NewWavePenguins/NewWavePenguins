@@ -18,6 +18,7 @@
   "homepage": "",
   "dependencies": {
     "angular-ui-router": "^0.3.1",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
     "express": "^4.14.0",

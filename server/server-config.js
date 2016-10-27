@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var handler = require('./request-handler');
 var stormpath = require('express-stormpath');
+var generateTree = require('./tree-generator');
 
 
 var db = require('./db/config');
@@ -26,6 +27,8 @@ app.use(stormpath.init(app, {
 }));
 
 //routes
+app.get('/test/:goalId', generateTree.generateTree);
+
 app.get('/', handler.getHandler);
 app.get('/getGoals/:userId', handler.getGoals);
 app.post('/signup', handler.signup);
