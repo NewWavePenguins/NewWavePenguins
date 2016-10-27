@@ -39,9 +39,8 @@ app.get('/test/:goalId', generateTree.generateTree);
 app.get('/', handler.getHandler);
 app.get('/getGoals/:userId', handler.getGoals);
 app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/',
-        failureRedirect : '/#/signup',
-        failureFlash : true
+        successRedirect : '/#/home/goals',
+        failureRedirect : '/#/signup'
     }));
 app.post('/addTask', handler.addTask);
 app.post('/addGoal', handler.addGoal);
@@ -52,9 +51,9 @@ app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
 app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
 // app.get('/elemsOfGoal/:id', handler.getElemsOfGoal);
 app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/', // redirect to the secure profile section
-        failureRedirect : '/#/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
+        successRedirect : '/#/home/goals',
+        failureRedirect : '/#/login',
+        failureFlash : true
     }));
 
 

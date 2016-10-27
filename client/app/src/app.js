@@ -44,6 +44,16 @@ angular.module('myApp', [
   templateUrl: '../views/signup.html'
   })
 
+  .state('auth', {
+  url: '/auth',
+  templateUrl: '../views/auth.html'
+  })
+
+  .state('profile', {
+  url: '/profile',
+  templateUrl: '../views/profile.html'
+  })
+
   })
 
   // setup dependency injection

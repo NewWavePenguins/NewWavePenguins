@@ -32,27 +32,10 @@ exports.getGoals = function(req, res) {
 // Add new user
 exports.signup = function(req, res) {
   passport.authenticate('local-signup', {
-          successRedirect : '/#/home',
-          failureRedirect : '/#/signup',
+          successRedirect : '/#/home/goals',
+          failureRedirect : '/#/auth',
           failureFlash : true
       })
-  // var username = req.body.username;
-  // var password = req.body.password;
-  // var firstName = req.body.firstName;
-  // var lastName = req.body.lastName;
-  // var newUser = new User({
-  //   username: username,
-  //   password: password,
-  //   firstName: firstName,
-  //   lastName: lastName,
-  //   goals: [],
-  // });
-  // newUser.save(function(err, newUser) {
-  //   if (err) { throw err }
-  //   else {
-  //     res.status(200).send(newUser);
-  //   }
-  // })
 }
 
 // Add a new goal to a given user
