@@ -2,7 +2,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var handler = require('./request-handler');
-var stormpath = require('express-stormpath');
 var generateTree = require('./tree-generator');
 
 
@@ -17,14 +16,6 @@ app.use(express.static(__dirname + '/../client/app'));
 
 // middleware
 app.use(bodyParser.json());
-app.use(stormpath.init(app, {
-  web: {
-    spa: {
-      enabled: true,
-      view: __dirname + '/../client/app/index.html'
-    }
-  }
-}));
 
 //routes
 app.get('/test/:goalId', generateTree.generateTree);
@@ -45,12 +36,6 @@ app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
 // listen
 app.set('port', 3000);
 
-app.on('stormpath.ready', function () {
-  app.listen(app.get('port'), function () {
-    console.log('Listening on port ' + app.get('port') );
-  });
+app.listen(app.get('port'), function () {
+  console.log('Listening on port ' + app.get('port') );
 });
-
-// app.listen(app.get('port'), function () {
-//   console.log('Listening on port ' + app.get('port') );
-// });

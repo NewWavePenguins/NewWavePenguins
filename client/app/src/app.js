@@ -28,7 +28,7 @@ angular.module('myApp', [
     .state('home.goals', {
      url: '/goals',
      templateUrl: '../views/goals.html'
-   }) 
+   })
    .state('home.goals.id', {
      url: '/:id',
      templateUrl: '../views/goal.html',
@@ -36,7 +36,7 @@ angular.module('myApp', [
      // controller: function($scope, $stateParams){
      //          $scope.person = $scope.contacts[$stateParams.id];
      //        }
-   }) 
+   })
 
     .state('login', {
     url: '/login',
