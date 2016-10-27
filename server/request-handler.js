@@ -31,7 +31,7 @@ exports.getGoals = function(req, res) {
 // Add new user
 exports.signup = function(req, res) {
   var username = req.body.username;
-  var password = req.body.username;
+  var password = req.body.password;
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var newUser = new User({
@@ -80,7 +80,21 @@ exports.addTask = function(req, res) {
   });
   newTask.save(function(err, newTask) {
     if (err) { throw err; }
-    else { res.status(200).send(newTask)}
+    else { 
+      res.status(200).send(newTask);
+      Goal.findOne({_id: parentId}, function(err, goal) {
+        if (err || !goal) {
+          Task.findOne({_id: parentId}, function(err, task) {
+            if (err) throw err;
+            task.tasks.push(newTask._id);
+            task.save();
+          })
+        } else {
+          goal.tasks.push(newTask._id);
+          goal.save();
+        }
+      })
+    }
   })
 }
 
