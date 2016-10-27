@@ -26,39 +26,33 @@ exports.generateTree = function(req, res){
   var goalId = req.params.goalId;
   Goal.findOne({_id: goalId}, function(err, goal){
   	
-    // inner recursive function
-    var recursive = function(tasksArray) {
-      // base case
-      if (tasksArray.length === 0) {return [];}
-    
+	// inner recursive function
+	var recursive = function(tasksArray) {
+	  var result;
+	  // base case
+	  if (tasksArray.length === 0) {return [];}
+
 	  var promises = [];
 	  for (var i=0; i < tasksArray.length; i++) {
 	  	promises.push(getTask(tasksArray[i]));
 	  }	    
 	   Promise.all(promises).then(function(children){
+
 	   	children.forEach(function(child){
-	   	  child.tasks = recursive(child.tasks);
+	   	  console.log('child.task',JSON.parse(child)["tasks"])
+	   	  JSON.parse(child)["tasks"] = recursive(JSON.parse(child)["tasks"]);
 	   	})
-	    // this is where recursion happens
-	    recursive(children[i].tasks);
-	    goal.tasks = taskArray;
-	    res.status(200).send(goal);
 	   }).catch(function(err){
 	    throw err;
 	   });
-
-      // loop through tasks array
-      // invode the recursive function on each item
-
-    };
+	}
     
+	goal.tasks = recursive(goal.tasks);
 
-   
-    
+	res.status(200).send(goal);
 
-   
-    
+	  // loop through tasks array
+	  // invode the recursive function on each item
 
   });
-	
 };
