@@ -1,8 +1,6 @@
 // create the angular app
 angular.module('myApp', [
   'ui.router',
-  'stormpath',
-  'stormpath.templates',
   'home.controllers',
   'myApp.controllers',
   'myApp.directives',
@@ -29,6 +27,7 @@ angular.module('myApp', [
      url: '/goals',
      templateUrl: '../views/goals.html'
    })
+
    .state('home.goals.id', {
      url: '/:id',
      templateUrl: '../views/goal.html',

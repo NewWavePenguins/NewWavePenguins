@@ -4,6 +4,16 @@ var partials = require('express-partials');
 var handler = require('./request-handler');
 var generateTree = require('./tree-generator');
 
+var express      = require('express');
+var partials     = require('express-partials');
+var handler      = require('./request-handler');
+var passport     = require('passport');
+var flash        = require('connect-flash');
+var morgan       = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
+
 
 var db = require('./db/config');
 var User = require('./db/models/User');
@@ -16,6 +26,15 @@ app.use(express.static(__dirname + '/../client/app'));
 
 // middleware
 app.use(bodyParser.json());
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
+
+// required for passport
+app.use(session({ secret: 'gaterade' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 //routes
 app.get('/test/:goalId', generateTree.generateTree);
