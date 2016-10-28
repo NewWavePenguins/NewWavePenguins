@@ -89,14 +89,14 @@ li:hover {
   background-color: lightblue;
 }
 
+.goals {
+  padding-top: 30px;
+}
+
 .goallist a { text-decoration: none; color:white; }
 .goallist a:visited { text-decoration: none; color:white; }
 .goallist a:hover { text-decoration: none; color:white; }
 .goallist a:focus { text-decoration: none; color:white; }
 .goallist a:hover { text-decoration: none; color:white; }
-
-/*body {
-  padding-top:80px;
-}*/
 
 
