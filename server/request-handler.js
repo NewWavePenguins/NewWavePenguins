@@ -134,6 +134,17 @@ exports.getTasksOfTask = function(req, res) {
   });
 }
 
+exports.isLoggedIn = function(req, res, next) {
+    console.log(req.isAuthenticated())
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()){
+      // res.redirect('/#/home/goals');
+      return next()
+    }
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
 // exports.getElemsOfGoal = function(req, res) {
 //   //set an empty output that will be populated with all descendandts of a given goalId
 //   var out = [];

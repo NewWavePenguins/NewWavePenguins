@@ -55,6 +55,11 @@ app.post('/login', passport.authenticate('local-login', {
         failureRedirect : '/#/login',
         failureFlash : true
     }));
+app.get('/loggedin', handler.isLoggedIn);
+app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
 
 
 // listen
