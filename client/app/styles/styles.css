@@ -48,6 +48,40 @@
 	padding-left: 10px;
 }
 
+
+h1 {
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+}
+
+body {
+ font-family: "Times New Roman", Times, serif;
+}
+
+ul {
+ width: 200px;
+ background: #292929;
+ color: white;
+ list-style: none;
+ padding-left: 0;
+}
+
+li {
+ padding: 10px;
+ border-bottom: 1px solid black;
+ border-top: 1px solid #3c3c3c;
+}
+
+li:hover {
+  background: lightblue;
+}
+
+a { text-decoration: none; color:white; }
+a:visited { text-decoration: none; color:white; }
+a:hover { text-decoration: none; color:white; }
+a:focus { text-decoration: none; color:white; }
+a:hover { text-decoration: none; color:white; }
+
 /*body {
   padding-top:80px;
 }*/
