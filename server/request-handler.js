@@ -49,6 +49,8 @@ exports.addGoal = function(req, res) {
   newGoal.save(function(err, newGoal) {
     if (err) { throw err; }
     else {
+      newGoal.goalId = newGoal._id;
+      newGoal.save();
       res.status(200).send(newGoal);
       User.findOne({_id: userId}, function(err, user) {
         if (err) throw err;
@@ -70,21 +72,34 @@ exports.addTask = function(req, res) {
   newTask.save(function(err, newTask) {
     if (err) { throw err; }
     else {
-      res.status(200).send(newTask);
       Goal.findOne({_id: parentId}, function(err, goal) {
         if (err || !goal) {
           Task.findOne({_id: parentId}, function(err, task) {
             if (err) throw err;
+            console.log('task as parent', task.goalId);
             task.tasks.push(newTask._id);
-            task.save();
+            task.save(function(err, task) {
+              if (err) throw err;
+              newTask.goalId = task.goalId;
+              newTask.save(function(err, newTask) {
+                if (err) throw err;
+                res.status(200).send(newTask);
+              });
+            });
           })
         } else {
+          console.log('goal as parent');
           goal.tasks.push(newTask._id);
           goal.save();
+          newTask.goalId = goal.goalId;
+          newTask.save(function(err, newTask){
+            res.status(200).send(newTask);
+          });
         }
       })
     }
   })
+
 }
 
 // Make task complete or incomplete

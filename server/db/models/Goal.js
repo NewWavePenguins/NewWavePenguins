@@ -6,6 +6,7 @@ var goalSchema = new Schema({
   title: String,
   userId: String,
   tasks: [String],
+  goalId: String,
 });
 
 var Goal = mongoose.model('Goal', goalSchema);

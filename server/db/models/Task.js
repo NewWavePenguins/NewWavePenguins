@@ -6,6 +6,7 @@ var taskSchema = new Schema({
   title:   String,
   parentId: String,
   tasks: [String],
+  goalId: String,
 });
 
 var Task = mongoose.model('Task', taskSchema);
