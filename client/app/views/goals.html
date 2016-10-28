@@ -1,4 +1,12 @@
-<ul>
+<div class="col-md-6">
+<ul class="goallist" style="list-style: none;">
 	<li ng-repeat="goal in goals"><a ng-href="#/home/goals/{{goal.id}}">{{goal.title}}</a></li>
 </ul>
+
+<form class="goalentry">
+  <div>Add Goal</div>
+  <input type="text" placeholder="add new goal..."><button>Add</button>
+
+</form>
+</div>
 <div ui-view></div>
