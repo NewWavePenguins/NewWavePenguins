@@ -3,7 +3,8 @@ var db = require('./db/config')
 var User = require('./db/models/User');
 var Goal = require('./db/models/Goal');
 var Task = require('./db/models/Task');
-
+var passport = require('passport');
+require('./passport')(passport);
 
 
 //test
@@ -30,23 +31,11 @@ exports.getGoals = function(req, res) {
 
 // Add new user
 exports.signup = function(req, res) {
-  var username = req.body.username;
-  var password = req.body.password;
-  var firstName = req.body.firstName;
-  var lastName = req.body.lastName;
-  var newUser = new User({
-    username: username,
-    password: password,
-    firstName: firstName,
-    lastName: lastName,
-    goals: [],
-  });
-  newUser.save(function(err, newUser) {
-    if (err) { throw err }
-    else {
-      res.status(200).send(newUser);
-    }
-  })
+  passport.authenticate('local-signup', {
+          successRedirect : '/#/home/goals',
+          failureRedirect : '/#/auth',
+          failureFlash : true
+      })
 }
 
 // Add a new goal to a given user
@@ -80,7 +69,7 @@ exports.addTask = function(req, res) {
   });
   newTask.save(function(err, newTask) {
     if (err) { throw err; }
-    else { 
+    else {
       res.status(200).send(newTask);
       Goal.findOne({_id: parentId}, function(err, goal) {
         if (err || !goal) {
@@ -145,6 +134,17 @@ exports.getTasksOfTask = function(req, res) {
   });
 }
 
+exports.isLoggedIn = function(req, res, next) {
+    console.log(req.isAuthenticated())
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()){
+      // res.redirect('/#/home/goals');
+      return next()
+    }
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
 // exports.getElemsOfGoal = function(req, res) {
 //   //set an empty output that will be populated with all descendandts of a given goalId
 //   var out = [];
@@ -178,7 +178,3 @@ exports.getTasksOfTask = function(req, res) {
 //     }
 //   };
 // }
-
-
-
-

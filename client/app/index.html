@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="styles/styles.css">
     <script src="lib/angular.js"></script>
     <script src="lib/angular-ui-router.js"></script>
-    <script src="lib/stormpath-sdk-angularjs.min.js"></script>
-    <script src="lib/stormpath-sdk-angularjs.tpls.min.js"></script>
+    <!-- <script src="lib/angular-flash.min.js"></script> -->
     <script src="src/app.js"></script>
     <script src="src/services/d3.js"></script>
-
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
     <script src="src/services/server-requests.js"></script>
     <script src="src/controllers/d3Ctrl.js"></script>
     <script src="src/controllers/home.js"></script>
@@ -22,8 +22,10 @@
     <div ui-view></div>
 
     <a ui-sref="home" ui-sref-active="active">Home</a>
+    <a ui-sref="home.goals" ui-sref-active="active">Goals</a>
+    <a ui-sref="auth" ui-sref-active="active">Auth</a>
     <a ui-sref="login" ui-sref-active="active">Login</a>
-    <a ui-sref="registration" ui-sref-active="active">Registration</a>
+    <a ui-sref="signup" ui-sref-active="active">Signup</a>
 
 
   </body>

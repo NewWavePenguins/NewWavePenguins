@@ -19,16 +19,25 @@
   "dependencies": {
     "angular-ui-router": "^0.3.1",
     "bluebird": "^3.4.6",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.2",
     "express": "^4.14.0",
     "express-partials": "^0.3.0",
-    "express-stormpath": "^3.1.5",
+    "express-session": "^1.14.1",
     "mocha": "^3.1.2",
     "mongoose": "^4.6.5",
+    "morgan": "^1.7.0",
     "nodemon": "^1.11.0",
-    "request": "^2.75.0",
-    "stormpath-spa-dev-server": "^1.2.0"
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "request": "^2.75.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",
