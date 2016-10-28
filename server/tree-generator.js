@@ -5,54 +5,126 @@ var User = require('./db/models/User');
 var Goal = require('./db/models/Goal');
 var Task = require('./db/models/Task');
 var Promise = require('bluebird');
+var mp = require('mongodb-promise');
 
-// // Start from goal 
-// Goal.find(function(err, goals)
-// })
-
-var getTask = function (taskId) {
-	return new Promise(function(resolve, reject){
-      Task.findOne({_id: taskId}, function(err, task) {
-      	if (err) {reject(err);}
-		else {
-			resolve(JSON.stringify(task));
-		}      
-      })
-	});
-}; 
-
+// p.then(function(value) {
+//    // fulfillment
+//   }, function(reason) {
+//   // rejection
+// });
 
 exports.generateTree = function(req, res){
+//^^^^^^^^^^^^^^^^^
+
   var goalId = req.params.goalId;
-  Goal.findOne({_id: goalId}, function(err, goal){
-  	
-	// inner recursive function
-	var recursive = function(tasksArray) {
-	  var result;
-	  // base case
-	  if (tasksArray.length === 0) {return [];}
 
-	  var promises = [];
-	  for (var i=0; i < tasksArray.length; i++) {
-	  	promises.push(getTask(tasksArray[i]));
-	  }	    
-	   Promise.all(promises).then(function(children){
+//$$$$$$$$$$$$$$$$
+  var getTasksOrGoals = function (input) {
 
-	   	children.forEach(function(child){
-	   	  console.log('child.task',JSON.parse(child)["tasks"])
-	   	  JSON.parse(child)["tasks"] = recursive(JSON.parse(child)["tasks"]);
-	   	})
-	   }).catch(function(err){
-	    throw err;
-	   });
-	}
-    
-	goal.tasks = recursive(goal.tasks);
+    function findSingleTaskOrGoal(id){
+      var result = {};
+      function findSingleTask(id) {
+        Task.findOne({_id: id}, function(err, task){
+          if (err) throw err;
+          result = task;
+        }).then(function(){cb();}, function(){console.log('err1');});
+      }
 
-	res.status(200).send(goal);
+      var failed = false;
+      var myGoal = Goal.findOne({_id: id}, function(err, goal){
+        if (err || goal === null || goal['title'] === undefined) { failed = true; }
+      });
 
-	  // loop through tasks array
-	  // invode the recursive function on each item
+      if (!failed) {
+        myGoal.then(function (goal) {
+          result = goal;
+          cb();
+        })
+      } else {
+        findSingleTask(id);
+      }
+      function cb() { return result; }
+    }
 
-  });
+
+    // var query = Band.findOne({name: "Guns N' Roses"});
+    // assert.ok(!(query instanceof require('mpromise')));
+
+    // // A query is not a fully-fledged promise, but it does have a `.then()`.
+    // query.then(function (doc) {
+    //   // use doc
+    // });
+
+    if (Array.isArray(input)) {
+      var myMap = [];
+      var mapify = function(input){
+        myMap = input.map(function(id) { findSingleTaskOrGoal(id); });
+      }
+      mapify(input).then(function() {return myMap})
+
+    } else {
+
+
+      return findSingleTaskOrGoal(input);
+
+    }
+
+  };
+//$$$$$$$$$$$$$$$$$$$
+
+// var greetingPromise = sayHello();
+// greetingPromise.then(function (greeting) {
+//     console.log(greeting);    // 'hello world’
+// });
+
+
+  var transformChildren = function(obj) {
+    var objOut = {};
+    for (var i in obj) objOut[i] = obj[i];
+    var goodArr = getTasksOrGoals(obj['tasks']);
+    objOut['tasks'] = goodArr;
+    return objOut;
+  }
+
+  var fullObj = function(rootId) {
+    var myObj = getTasksOrGoals(rootId);
+
+    var recurse = function(obj) {
+
+      var outObj = {};
+      for (var i in obj) outObj[i] = obj[i];
+      if (obj['tasks'].length === 0) return obj;
+      outObj = transformChildren(obj);
+      outObj['children'] = outObj['children'].map(function(child) {
+        return recurse(child);
+      });
+      return outObj;
+
+    }
+  }
+
+  // function foo(){
+  //     return Promise.resolve("Value");
+  // }
+
+  // foo().then(alert);
+  var finalOut = 'hey';
+  function go(goalId) {
+    finalOut = fullObj(goalId);
+    return Promise.resolve(finalOut);
+  }
+
+  go(goalId).then(function() { finalCB(); });
+
+  function finalCB() { res.status(200).send(finalOut); }
+
+
+
+//VVVVVVVVVVVVVVVVVV
 };
+
+
+
+
+
+
