@@ -3,7 +3,7 @@ angular.module('myApp.controllers')
   .controller('d3Ctrl', function($scope, $stateParams, Tasks){
     for (var i=0; i < $scope.goals.length; i++) {
       if ($scope.goals[i].id === Number($stateParams.id)) {
-        $scope.d3Data = $scope.goals[i]; 
+        $scope.d3Data = $scope.goals[i];
       }
     }
 
