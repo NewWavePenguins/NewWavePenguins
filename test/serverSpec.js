@@ -1,5 +1,4 @@
 var chai = require('chai');
-// var chaihttp = require('chai-http');
 var expect = chai.expect;
 var should = require('should');
 var request = require('request');
@@ -38,17 +37,6 @@ User.collection.drop();
     done();
   });
 
-  describe('get request handle', function () {
-    it('should respond to a successful GET request with a status code 200', function (done){
-      request('http://127.0.0.1:3000', function(error, response, body) {
-        if (!error) {
-          expect(response.statusCode).to.equal(200);
-        }
-      })
-      done();
-    });
-  });
-
   describe('Goals', function() {
     it('should GET goals from DB', function(done) {
       request('http://127.0.0.1:3000/getGoals/58126cb54cdec58b1e35eeb0', function(error, res, body) {
@@ -57,25 +45,22 @@ User.collection.drop();
         done()
       })
     })
-    describe('addGoal', function () {
-      it('should create a new Goal', function (done) {
-        // Create a User object to pass to User.create()
-        var g = {
-          completed: false,
-          title: 'create tests for greenfield',
-          userId: '58126cb54cdec58b1e35eeb0',
-          tasks: [],
-          goalId: '1'
-        };
-        Goal.create(g, function (err, createdGoal) {
-          // Confirm that that an error does not exist
-          should.not.exist(err);
-          // verify that the returned user is what we expect
-          createdGoal.completed.should.equal(false);
-          createdGoal.title.should.equal('create tests for greenfield');
-          // Call done to tell mocha that we are done with this test
-          done();
-        });
+    it('should create a new Goal', function (done) {
+      var g = {
+        completed: false,
+        title: 'create tests for greenfield',
+        userId: '58126cb54cdec58b1e35eeb0',
+        tasks: [],
+        goalId: '1'
+      };
+      Goal.create(g, function (err, createdGoal) {
+        should.not.exist(err);
+        createdGoal.completed.should.equal(false);
+        createdGoal.title.should.equal('create tests for greenfield');
+        done();
       });
     });
+    it('should mark a goal complete', function(done) {
+
+    })
   })
