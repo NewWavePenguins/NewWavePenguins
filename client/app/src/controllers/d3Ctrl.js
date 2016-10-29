@@ -3,7 +3,7 @@ angular.module('myApp.controllers')
   .controller('d3Ctrl', function($scope, $stateParams, Tasks){
     for (var i=0; i < $scope.goals.length; i++) {
       if ($scope.goals[i].id === Number($stateParams.id)) {
-        $scope.d3Data = $scope.goals[i]; 
+        $scope.d3Data = $scope.goals[i];
       }
     }
 
@@ -50,11 +50,16 @@ angular.module('myApp.controllers')
     $scope.addTask = function () {
       $scope.d3Data.children[0].children.push({"title": $scope.newTask.title});
       // console.log($scope.d3Data)
-      Tasks.postChange().then(function(){
-        Tasks.getGoalsArray();
-      })
+      // Tasks.postChange().then(function(){
+      //   Tasks.getGoalsArray();
+      //})
 
     };
+
+    $scope.addGoal = function() {
+        console.log('clicked')
+    }
+
   });
 
 
