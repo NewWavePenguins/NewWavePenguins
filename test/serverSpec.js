@@ -108,7 +108,28 @@ Goal.collection.drop();
     it('should get tasks of goals', function(done) {
       request('http://127.0.0.1:3000/getTasksOfGoal/1', function(error, res, body) {
         expect(res.statusCode).to.equal(200);
-        expect(JSON.parse(res.body)).to.eql([])
+        expect(JSON.parse(res.body)).to.eql(['create tests for greenfield'])
+        done()
+      })
+    })
+    it('should get an empty task for a goal with no tasks', function(done) {
+      request('http://127.0.0.1:3000/getTasksOfGoal/3', function(error, res, body) {
+        expect(res.statusCode).to.equal(200);
+        expect(JSON.parse(body)).to.eql([]);
+        done()
+      })
+    })
+    it('should get tasks of tasks', function(done) {
+      request('http://127.0.0.1:3000/getTasksOfTask/1', function(error, res, body) {
+        expect(res.statusCode).to.equal(200);
+        expect(JSON.parse(body)).to.eql(['create task for goal']);
+        done()
+      })
+    })
+    it('should get empty task if no task', function(done) {
+      request('http://127.0.0.1:3000/getTasksOfGoal/2', function(error, res, body) {
+        expect(res.statusCode).to.equal(200);
+        expect(JSON.parse(body)).to.eql([]);
         done()
       })
     })

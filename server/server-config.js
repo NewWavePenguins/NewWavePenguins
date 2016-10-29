@@ -49,6 +49,8 @@ app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/#/home/goals',
         failureRedirect : '/#/signup'
     }));
+app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
+// app.get('/elemsOfGoal/:id', handler.getElemsOfGoal);
 app.post('/login', passport.authenticate('local-login', {
         successRedirect : '/#/home/goals',
         failureRedirect : '/#/login',
