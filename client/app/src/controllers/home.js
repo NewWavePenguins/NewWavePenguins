@@ -1,9 +1,8 @@
 angular.module('home.controllers', ['ui.router', 'myApp.services'])
-.controller('homeController', function($scope, $http, Goals) {
+.controller('homeController', function($scope, Goals) {
 
   Goals.getGoalsArray().then(function(array){
     $scope.goals = array; 
-    console.log('scope.goals',$scope.goals);
   });
 
 //   $scope.goals = [
