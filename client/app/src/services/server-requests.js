@@ -4,7 +4,7 @@ angular.module('myApp.services',[])
   var getGoalsArray = function() {
     return $http({
     	method: 'GET',
-    	url: '/allGoals/5813e667ac5ac74563b28bbf'
+    	url: '/allGoals/5814ee4d6a443ff8bf513563'
     }).then(function(res){
       console.log(res.data);
     	return res.data;
