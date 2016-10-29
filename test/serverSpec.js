@@ -1,10 +1,12 @@
 var chai = require('chai');
+var chaiHttp = require('chai-http');
 var expect = chai.expect;
 var should = require('should');
 var request = require('request');
 var mongoose = require('mongoose');
 var User = require('../server/db/models/User');
 var Goal = require('../server/db/models/Goal');
+chai.use(chaiHttp);
 mongoose.connect('mongodb://localhost/greenfield-test');
 
 var db = mongoose.connection;
@@ -60,7 +62,35 @@ User.collection.drop();
         done();
       });
     });
-    it('should mark a goal complete', function(done) {
-
+    it('should make a req to add new goal', function(done) {
+      chai
+        .request('http://127.0.0.1:3000')
+        .post('/addGoal')
+        .set('content-type', 'application/json')
+        .send({title: 'create mo tests', userId: '58126cb54cdec58b1e35eeb0'})
+        .end(function(error, res, body) {
+          if (error) {
+            done(error);
+          } else {
+            // Goal.findOne({goalId: '2'}).title.should.equal('create mo tests');
+            // Goal.findOne({goalId: '2'}).completed.should.equal(false);
+            done();
+          }
+        });
     })
+    // it('should mark a goal complete', function(done) {
+    //   chai
+    //     .request('http://127.0.0.1:3000')
+    //     .put('/makeGoalComplete')
+    //     .set('content-type', 'application/json')
+    //     .send({goalId: '1'})
+    //     .end(function(error, res, body) {
+    //       if (error) {
+    //         done(error);
+    //       } else {
+    //         Goal.findOne({goalId: '1'}).completed.should.equal(true);
+    //         done();
+    //       }
+    //     });
+    // })
   })
