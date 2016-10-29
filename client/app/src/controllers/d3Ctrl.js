@@ -50,11 +50,16 @@ angular.module('myApp.controllers')
     $scope.addTask = function () {
       $scope.d3Data.children[0].children.push({"title": $scope.newTask.title});
       // console.log($scope.d3Data)
-      Tasks.postChange().then(function(){
-        Tasks.getGoalsArray();
-      })
+      // Tasks.postChange().then(function(){
+      //   Tasks.getGoalsArray();
+      //})
 
     };
+
+    $scope.addGoal = function() {
+        console.log('clicked')
+    }
+
   });
 
 
