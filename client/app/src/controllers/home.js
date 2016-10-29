@@ -3,7 +3,7 @@ angular.module('home.controllers', ['ui.router', 'myApp.services'])
 
   Goals.getGoalsArray().then(function(array){
     $scope.goals = array; 
-    console.log('scope.goals',$scope.goals);
+    // console.log('scope.goals',$scope.goals);
   });
 
 //   $scope.goals = [

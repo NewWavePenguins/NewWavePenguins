@@ -57,7 +57,10 @@ app.post('/login', passport.authenticate('local-login', {
         failureRedirect : '/#/login',
         failureFlash : true
     }));
-app.get('/allGoals/:userId', allGoals.generateGoalsArray);
+
+app.get('/allGoals', handler.isLoggedIn, 
+allGoals.generateGoalsArray); // need a middleware here
+
 app.get('/loggedin', handler.isLoggedIn);
 app.get('/logout', function(req, res) {
         req.logout();

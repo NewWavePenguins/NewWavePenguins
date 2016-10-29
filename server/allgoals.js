@@ -100,7 +100,7 @@ var singleTree = function(goalId){
 exports.generateGoalsArray = function(req, res) {
   //console.log('here');
   var outArr = [];
-  var userId = req.params.userId;
+  var userId = req.session.userId;
 
   User.findOne({_id: userId}).exec(function(err, user){
     var idArr = user.goals;

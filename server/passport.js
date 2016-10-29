@@ -37,10 +37,10 @@ module.exports = function(passport) {
                 newUser.local.password = newUser.generateHash(password);
                 newUser.goals = [];
                 // save the user
-                newUser.save(function(err) {
-                  if (err)
-                    throw err;
-                    return done(null, newUser);
+                newUser.save(function(err, newUser) {
+                  if (err) throw err;
+                  req.session.userId = newUser._id;
+                  return done(null, newUser);
                 });
               }
           });
@@ -64,6 +64,8 @@ module.exports = function(passport) {
       if (!user.validPassword(password))
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
 
+      req.session.userId = user._id;
+      // console.log('req.body.email', req.body.email);
       return done(null, user);
     });
   }));

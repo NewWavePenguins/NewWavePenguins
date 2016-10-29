@@ -4,7 +4,7 @@ angular.module('myApp.controllers')
    
     for (var i=0; i < $scope.goals.length; i++) {
       if ($scope.goals[i].id === $stateParams.id) {
-        console.log('Found the goal');
+        // console.log('Found the goal');
         $scope.d3Data = $scope.goals[i];
 
       }

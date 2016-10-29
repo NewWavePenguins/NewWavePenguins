@@ -154,10 +154,11 @@ exports.isLoggedIn = function(req, res, next) {
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()){
       // res.redirect('/#/home/goals');
-      return next()
-    }
+      next();
+    } else {
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/'); 
+    }
 }
 
 // exports.getElemsOfGoal = function(req, res) {
