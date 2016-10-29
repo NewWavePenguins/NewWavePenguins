@@ -1,4 +1,3 @@
-// dependencies
 var handler = require('./request-handler');
 var db = require('./db/config')
 var User = require('./db/models/User');
@@ -7,21 +6,15 @@ var Task = require('./db/models/Task');
 var Promise = require('bluebird');
 var mp = require('mongodb-promise');
 
-// p.then(function(value) {
-//    // fulfillment
-//   }, function(reason) {
-//   // rejection
-// });
-
-exports.generateTree = function(req, res){
-
-  var goalId = req.params.goalId;
+var singleTree = function(goalId){
+  return new Promise(function(resolve, reject){
+  // var goalId = req.params.goalId;
   var currGoal;
   var tasksArray;
 //find goal set goal to variable
-
   Goal.findOne({_id: goalId}, function(err, goal) {
-    if (err) throw err;
+    if (err) {
+      throw err;}
     currGoal = {
       _id: goal._id.toString(),
       title: goal.title,
@@ -45,7 +38,7 @@ exports.generateTree = function(req, res){
       });
 
       tasksArray.push(currGoal);
-      console.log('TASKSATTAY', tasksArray);
+      //console.log('TASKSATTAY', tasksArray);
 
 
       var idToObj = function(input) {
@@ -61,7 +54,7 @@ exports.generateTree = function(req, res){
           // console.log('outArr', outArr)
           return outArr;
         } else {
-          console.log('in else');
+          //console.log('in else');
           for (var j = 0; j < tasksArray.length; j++) {
             // console.log('tasksArr_id', tasksArray[j]['_id'], 'input', input)
             if (tasksArray[j]['_id'].toString() === input) {
@@ -97,69 +90,38 @@ exports.generateTree = function(req, res){
         }
         return recurse(myObj);
       }
-      res.status(200).send(fullObj(goalId));
+      resolve(fullObj(goalId));
     });
   });
-};
 
-    //find all tasks with goal id
+  }); // end of return Promise
+}; // end of singleTree
 
+exports.generateGoalsArray = function(req, res) {
+  //console.log('here');
+  var outArr = [];
+  var userId = req.params.userId;
 
+  User.findOne({_id: userId}).exec(function(err, user){
+    var idArr = user.goals;
+    if (err) throw err;
+    // console.log(idArr);
+    // console.log(user);
+    // return user.goals.map(function(goalId){
+    //   return generateTree(goalId);
+    // });
+    // singleTree(someGoalId)
+    var promises = [];
+    for (var i=0; i< idArr.length; i++){
+      promises.push(singleTree(idArr[i]))
+    }
+    Promise.all(promises).then(function(array) {
+      res.status(200).send(array);
+    })
 
+  })
 
-
-// var greetingPromise = sayHello();
-// greetingPromise.then(function (greeting) {
-//     console.log(greeting);    // 'hello world’
-// });
-
-
-  // var transformChildren = function(obj) {
-  //   var objOut = {};
-  //   for (var i in obj) objOut[i] = obj[i];
-  //   var goodArr = getTasksOrGoals(obj['tasks']);
-  //   objOut['tasks'] = goodArr;
-  //   return objOut;
-  // }
-
-  // var fullObj = function(rootId) {
-  //   var myObj = getTasksOrGoals(rootId);
-
-  //   var recurse = function(obj) {
-
-  //     var outObj = {};
-  //     for (var i in obj) outObj[i] = obj[i];
-  //     if (obj['tasks'].length === 0) return obj;
-  //     outObj = transformChildren(obj);
-  //     outObj['children'] = outObj['children'].map(function(child) {
-  //       return recurse(child);
-  //     });
-  //     return outObj;
-
-  //   }
-  // }
-
-  // // function foo(){
-  // //     return Promise.resolve("Value");
-  // // }
-
-  // // foo().then(alert);
-  // var finalOut = 'hey';
-  // function go(goalId) {
-  //   finalOut = fullObj(goalId);
-  //   return Promise.resolve(finalOut);
-  // }
-
-  // go(goalId).then(function() { finalCB(); });
-
-  // function finalCB() { res.status(200).send(finalOut); }
-
-
-
-//VVVVVVVVVVVVVVVVVV
-
-
-
+}
 
 
 
