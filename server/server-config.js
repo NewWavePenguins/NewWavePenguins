@@ -9,6 +9,7 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var allGoals = require('./allgoals');
 
 
 var db = require('./db/config');
@@ -44,6 +45,7 @@ app.post('/signup', passport.authenticate('local-signup', {
     }));
 app.post('/addTask', handler.addTask);
 app.post('/addGoal', handler.addGoal);
+
 app.put('/toggleTaskCompleted', handler.toggleTaskCompleted);
 app.put('/makeTaskComplete', handler.makeTaskComplete);
 app.put('/makeGoalComplete', handler.makeGoalComplete);
@@ -55,6 +57,7 @@ app.post('/login', passport.authenticate('local-login', {
         failureRedirect : '/#/login',
         failureFlash : true
     }));
+app.get('/allGoals/:userId', allGoals.generateGoalsArray);
 app.get('/loggedin', handler.isLoggedIn);
 app.get('/logout', function(req, res) {
         req.logout();

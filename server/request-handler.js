@@ -88,7 +88,7 @@ exports.addTask = function(req, res) {
             });
           })
         } else {
-          console.log('goal as parent');
+          //console.log('goal as parent');
           goal.tasks.push(newTask._id);
           goal.save();
           newTask.goalId = goal.goalId;
@@ -150,7 +150,7 @@ exports.getTasksOfTask = function(req, res) {
 }
 
 exports.isLoggedIn = function(req, res, next) {
-    console.log(req.isAuthenticated())
+    //console.log(req.isAuthenticated())
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()){
       // res.redirect('/#/home/goals');
