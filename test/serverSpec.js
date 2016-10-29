@@ -1,11 +1,11 @@
 var chai = require('chai');
 // var chaihttp = require('chai-http');
 var expect = chai.expect;
-var should = chai.should();
+var should = require('should');
 var request = require('request');
 var mongoose = require('mongoose');
 var User = require('../server/db/models/User');
-
+var Goal = require('../server/db/models/Goal');
 mongoose.connect('mongodb://localhost/greenfield-test');
 
 var db = mongoose.connection;
@@ -16,7 +16,7 @@ db.once('open', function () {
 
 
 
-// db.collection.drop();
+User.collection.drop();
 
   beforeEach(function(done){
     var newUser = new User({
@@ -57,12 +57,25 @@ db.once('open', function () {
         done()
       })
     })
+    describe('addGoal', function () {
+      it('should create a new Goal', function (done) {
+        // Create a User object to pass to User.create()
+        var g = {
+          completed: false,
+          title: 'create tests for greenfield',
+          userId: '58126cb54cdec58b1e35eeb0',
+          tasks: [],
+          goalId: '1'
+        };
+        Goal.create(g, function (err, createdGoal) {
+          // Confirm that that an error does not exist
+          should.not.exist(err);
+          // verify that the returned user is what we expect
+          createdGoal.completed.should.equal(false);
+          createdGoal.title.should.equal('create tests for greenfield');
+          // Call done to tell mocha that we are done with this test
+          done();
+        });
+      });
+    });
   })
-
-  // describe('Blobs', function() {
-  //   it('should list ALL blobs on /blobs GET');
-  //   it('should list a SINGLE blob on /blob/<id> GET');
-  //   it('should add a SINGLE blob on /blobs POST');
-  //   it('should update a SINGLE blob on /blob/<id> PUT');
-  //   it('should delete a SINGLE blob on /blob/<id> DELETE');
-  // });
