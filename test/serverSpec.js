@@ -6,8 +6,9 @@ var request = require('request');
 var mongoose = require('mongoose');
 var User = require('../server/db/models/User');
 var Goal = require('../server/db/models/Goal');
+var Task = require('../server/db/models/Task');
 chai.use(chaiHttp);
-mongoose.connect('mongodb://localhost/greenfield');
+mongoose.connect('mongodb://localhost/greenfield-test');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -19,6 +20,7 @@ db.once('open', function () {
 
 User.collection.drop();
 Goal.collection.drop();
+Task.collection.drop();
 
   beforeEach(function(done){
     var newUser = new User({
@@ -33,19 +35,28 @@ Goal.collection.drop();
     });
     newUser.save();
     var newGoal = new Goal({
+      _id: '1',
       completed: false,
       title: 'test 1 2',
       userId: '1',
-      tasks: [],
-      goalId: '1'
+      tasks: []
     });
-    newGoal.save(function(err) {
+    newGoal.save();
+    var newTask = new Task({
+      _id: '1',
+      completed:   false,
+      title:   'create task for goal',
+      parentId: '1',
+      tasks: []
+    });
+    newTask.save(function(err) {
       done();
-    });
   });
+  })
   afterEach(function(done){
     User.collection.drop();
     Goal.collection.drop();
+    Task.collection.drop();
     done();
   });
 
@@ -88,19 +99,15 @@ Goal.collection.drop();
           }
         });
     })
-    xit('should mark a goal complete', function(done) {
-      chai
-        .request('http://127.0.0.1:3000')
-        .put('/makeGoalComplete')
-        // .send({goalId: '2'})
-        .end(function(error, res, body) {
-          if (error) {
-            done(error);
-          } else {
-            // Goal.findOne({goalId: '1'}).completed.should.equal(true);
-            done();
-          }
-        });
+    it('should mark a goal complete', function(done) {
+      request('http://127.0.0.1:3000/makeGoalComplete/1', function(error, res, body) {
+        expect(res.statusCode).to.equal(200);
+      })
+      request('http://127.0.0.1:3000/getGoals/58126cb54cdec58b1e35eeb0', function(error, res, body) {
+        expect(res.statusCode).to.equal(200);
+        expect(body.completed).to.eql(true);
+        done()
+      })
     })
   })
 
@@ -108,7 +115,7 @@ Goal.collection.drop();
     it('should get tasks of goals', function(done) {
       request('http://127.0.0.1:3000/getTasksOfGoal/1', function(error, res, body) {
         expect(res.statusCode).to.equal(200);
-        expect(JSON.parse(res.body)).to.eql(['create tests for greenfield'])
+        expect(JSON.parse(body)).to.eql(['create task tests'])
         done()
       })
     })
@@ -122,7 +129,7 @@ Goal.collection.drop();
     it('should get tasks of tasks', function(done) {
       request('http://127.0.0.1:3000/getTasksOfTask/1', function(error, res, body) {
         expect(res.statusCode).to.equal(200);
-        expect(JSON.parse(body)).to.eql(['create task for goal']);
+        expect(JSON.parse(body)).to.eql(['task for task']);
         done()
       })
     })
