@@ -1,12 +1,16 @@
 
 angular.module('myApp.controllers')
-  .controller('d3Ctrl', function($scope, $stateParams, Tasks){
+  .controller('d3Ctrl', function($scope, $stateParams, $window){
+   
     for (var i=0; i < $scope.goals.length; i++) {
-      if ($scope.goals[i]._id === Number($stateParams.id)) {
+      if ($scope.goals[i].id === $stateParams.id) {
+        console.log('Found the goal');
         $scope.d3Data = $scope.goals[i];
-      }
-    }
 
+      }
+    }        
+  
+    
     // $scope.d3Data = {
     //     "id": 12,
     //     "title": "Graduate from HR!!!",

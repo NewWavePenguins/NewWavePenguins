@@ -16,10 +16,10 @@ var singleTree = function(goalId){
     if (err) {
       throw err;}
     currGoal = {
-      _id: goal._id.toString(),
+      id: goal._id.toString(),
       title: goal.title,
       userId: goal.userId,
-      tasks: goal.tasks,
+      children: goal.tasks,
       completed: goal.completed,
       goalId: goal.goalId
     };
@@ -29,9 +29,9 @@ var singleTree = function(goalId){
 
       tasksArray = tasksArr.map(function(task){
         return {
-          _id: task._id.toString(),
+          id: task._id.toString(),
           title: task.title,
-          tasks: task.tasks,
+          children: task.tasks,
           completed: task.completed,
           goalId: task.goalId
         };
@@ -45,7 +45,7 @@ var singleTree = function(goalId){
         if (Array.isArray(input)) {
           var outArr = input.map(function(val) {
             for (var i = 0; i < tasksArray.length; i++) {
-              if (tasksArray[i]['_id'].toString() === val) {
+              if (tasksArray[i]['id'].toString() === val) {
                 // console.log('IM INSIDE IF')
                 return tasksArray[i];
               }
@@ -57,7 +57,7 @@ var singleTree = function(goalId){
           //console.log('in else');
           for (var j = 0; j < tasksArray.length; j++) {
             // console.log('tasksArr_id', tasksArray[j]['_id'], 'input', input)
-            if (tasksArray[j]['_id'].toString() === input) {
+            if (tasksArray[j]['id'].toString() === input) {
               return tasksArray[j];
             }
           }
@@ -69,8 +69,8 @@ var singleTree = function(goalId){
         for (var i in obj) {
           objOut[i] = obj[i];
         }
-        var goodArr = idToObj(obj['tasks']);
-        objOut['tasks'] = goodArr;
+        var goodArr = idToObj(obj['children']);
+        objOut['children'] = goodArr;
         return objOut;
       }
 
@@ -80,9 +80,9 @@ var singleTree = function(goalId){
           var outObj = {};
           for (var i in obj) outObj[i] = obj[i];
             // console.log('obj', obj);
-          if (obj['tasks'].length === 0) return outObj;
+          if (obj['children'].length === 0) return outObj;
           outObj = transformChildren(obj);
-          outObj['tasks'] = outObj['tasks'].map(function(child) {
+          outObj['children'] = outObj['children'].map(function(child) {
             // console.log('outObj', outObj)
             return recurse(child);
           });

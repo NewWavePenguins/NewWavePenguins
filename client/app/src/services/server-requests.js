@@ -6,21 +6,10 @@ angular.module('myApp.services',[])
     	method: 'GET',
     	url: '/allGoals/5814ee4d6a443ff8bf513563'
     }).then(function(res){
-      console.log(res.data);
+      console.log('res.data',res.data[0]);
     	return res.data;
     })
   };
-
-  // var postChange = function(){
-  // 	return $http().then
-  // }
-
-
-
-
-
-
-
 
 
   return {
