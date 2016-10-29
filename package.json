@@ -18,8 +18,8 @@
   "homepage": "",
   "dependencies": {
     "angular-ui-router": "^0.3.1",
-    "bluebird": "^3.4.6",
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
     "connect-flash": "^0.1.1",
