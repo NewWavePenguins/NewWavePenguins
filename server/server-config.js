@@ -35,7 +35,6 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 //routes
-app.get('/', handler.getHandler);
 app.get('/getGoals/:userId', handler.getGoals);
 app.post('/home/goals/addGoal', handler.isLoggedIn, handler.addGoal);
 app.post('/addTask', handler.addTask);

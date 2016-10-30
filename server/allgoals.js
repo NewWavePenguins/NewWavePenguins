@@ -11,7 +11,7 @@ var singleTree = function(goalId){
   // var goalId = req.params.goalId;
   var currGoal;
   var tasksArray;
-//find goal set goal to variable
+  //find goal set goal to variable
   Goal.findOne({_id: goalId}, function(err, goal) {
     if (err) {
       throw err;}
