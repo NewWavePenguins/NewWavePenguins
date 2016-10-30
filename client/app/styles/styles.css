@@ -93,6 +93,10 @@ li:hover {
   padding-top: 30px;
 }
 
+#goal-tree {
+  float: right;
+}
+
 .goallist a { text-decoration: none; color:white; }
 .goallist a:visited { text-decoration: none; color:white; }
 .goallist a:hover { text-decoration: none; color:white; }
