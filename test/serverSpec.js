@@ -1,14 +1,14 @@
 var chai = require('chai');
-var chaiHttp = require('chai-http');
+var should = require('chai').should();
 var expect = require('chai').expect;
-var should = require('should');
-var request = require('supertest');
+var supertest = require('supertest');
+var request = supertest('http://127.0.0.1:3000')
+var express = require('express');
 var mongoose = require('mongoose');
-var app = require('../server/server-config.js');
 var User = require('../server/db/models/User');
 var Goal = require('../server/db/models/Goal');
 var Task = require('../server/db/models/Task');
-chai.use(chaiHttp);
+
 mongoose.connect('mongodb://localhost/greenfieldTest');
 
 var db = mongoose.connection;
@@ -62,50 +62,40 @@ Task.collection.drop();
   });
 
   describe('Goals', function() {
-    it('should GET goals from DB', function(done) {
-      request('http://127.0.0.1:3000/getGoals/1', function(error, res, body) {
-        expect(res.statusCode).to.equal(200);
-        expect(JSON.parse(res.body)).to.eql([])
-        done()
+    xit('should GET goals', function(done) {
+      request.get('/getGoals/1')
+      .set('Accept', 'application/json')
+      .expect(200)
+      .end(function(err, res) {
+        expect(res.body.title).to.equal('test 1 2')
       })
     })
-    it('should create a new Goal', function (done) {
-      var g = {
-        completed: false,
+    xit('should create a new Goal', function (done) {
+      request.post('/home/goals/addGoal/')
+      .send({
         title: 'create tests for greenfield',
         userId: '1',
-        tasks: [],
-      };
-      Goal.create(g, function (err, createdGoal) {
-        should.not.exist(err);
-        createdGoal.completed.should.equal(false);
-        createdGoal.title.should.equal('create tests for greenfield');
-        done();
-      });
-    });
-    it('should make a req to add new goal', function(done) {
-      request(app)
-        .post('/addGoal')
-        .send({title: 'create mo tests', userId: '1'})
-        .expect(200)
-        .expect(function(res) {
-            Goal.findOne({title: 'create mo tests'})
-              .exec(function(err, goal) {
-                if (err) { console.log(err); }
-                expect(goal.title).to.equal('create mo tests');
-              });
-          })
-          .end(done());
-    })
-    xit('should mark a goal complete', function(done) {
-      request('http://127.0.0.1:3000/makeGoalComplete/1', function(error, res, body) {
-        expect(res.statusCode).to.equal(200);
       })
-      request('http://127.0.0.1:3000/getGoals/58126cb54cdec58b1e35eeb0', function(error, res, body) {
-        expect(res.statusCode).to.equal(200);
-        expect(body.completed).to.eql(true);
+      .end(function(err, res) {
+        Goal.findOne({title: 'create tests for greenfield'}).exec(function(err, goal) {
+          if (err) { console.log(err); }
+          expect(goal.title).to.equal('create tests for greenfield');
+        })
         done()
       })
+    });
+    it('should mark a goal complete', function(done) {
+      var testId;
+      Goal.findOne({title: 'test 1 2'}).exec(function(err, goal) {
+        testId = goal._id
+      })
+      request.post('/makeGoalComplete/' + testId)
+      .expect(200)
+      .end(function(err, res) {
+        expect(res.completed).to.equal(true);
+        done()
+      })
+
     })
   })
 
