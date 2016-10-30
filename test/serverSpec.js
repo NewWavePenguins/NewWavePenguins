@@ -11,10 +11,6 @@ var Task = require('../server/db/models/Task');
 chai.use(chaiHttp);
 mongoose.connect('mongodb://localhost/greenfieldTest');
 
-var db = require('../app/config');
-var User = require('../app/models/user');
-var Link = require('../app/models/link');
-
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
@@ -87,21 +83,19 @@ Task.collection.drop();
         done();
       });
     });
-    xit('should make a req to add new goal', function(done) {
+    it('should make a req to add new goal', function(done) {
       request(app)
         .post('/addGoal')
-        // .set('content-type', 'application/json')
         .send({title: 'create mo tests', userId: '1'})
         .expect(200)
-        .end(function(error, res, body) {
-          if (error) {
-            done(error);
-          } else {
-            // Goal.findOne({goalId: '2'}).title.should.equal('create mo tests');
-            // Goal.findOne({goalId: '2'}).completed.should.equal(false);
-            done();
-          }
-        });
+        .expect(function(res) {
+            Goal.findOne({title: 'create mo tests'})
+              .exec(function(err, goal) {
+                if (err) { console.log(err); }
+                expect(goal.title).to.equal('create mo tests');
+              });
+          })
+          .end(done());
     })
     xit('should mark a goal complete', function(done) {
       request('http://127.0.0.1:3000/makeGoalComplete/1', function(error, res, body) {

@@ -35,7 +35,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 //routes
-app.get('/test/:goalId', generateTree.generateTree);
+// app.get('/test/:goalId', generateTree.generateTree);
 
 app.get('/getGoals/:userId', handler.getGoals);
 app.post('/home/goals/addGoal', handler.isLoggedIn, handler.addGoal);
