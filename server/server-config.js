@@ -47,7 +47,6 @@ app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
 app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
 app.post('/toggleTaskCompleted', handler.toggleTaskCompleted);
 
-
 app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/#/home/goals',
         failureRedirect : '/#/signup'

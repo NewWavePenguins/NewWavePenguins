@@ -7,28 +7,6 @@ var passport = require('passport');
 require('./passport')(passport);
 
 
-//test
-exports.getHandler = function(req, res) {
-  User.find(function(err, users) {
-    if (err) {throw err}
-    else {
-      res.status(200).send(users);
-    }
-  })
-};
-
-// Fetch goals for a given user
-exports.getGoals = function(req, res) {
-  var userId = req.params.userId;
-  Goal.find({userId: userId}).exec(function (err, goals){
-    if (err) { throw err }
-    else {
-      res.status(200).send(goals);
-    }
-  })
-};
-
-
 // Add new user
 exports.signup = function(req, res) {
   passport.authenticate('local-signup', {
@@ -61,7 +39,7 @@ exports.addGoal = function(req, res) {
   })
 }
 
-//Add new task
+//Add new task to a given goal or task
 exports.addTask = function(req, res) {
   var title = req.body.title;
   var parentId = req.body.parentId;
@@ -88,7 +66,6 @@ exports.addTask = function(req, res) {
             });
           })
         } else {
-          //console.log('goal as parent');
           goal.tasks.push(newTask._id);
           goal.save();
           newTask.goalId = goal.goalId;
@@ -118,6 +95,29 @@ exports.toggleTaskCompleted = function(req, res) {
   });
 }
 
+// Check if the user is logged in
+exports.isLoggedIn = function(req, res, next) {
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()){
+      next();
+    } else {
+    // if they aren't, redirect them to the home page
+    res.redirect('/'); 
+    }
+}
+
+// Fetch all goals for a given user from db
+exports.getGoals = function(req, res) {
+  var userId = req.params.userId;
+  Goal.find({userId: userId}).exec(function (err, goals){
+    if (err) { throw err }
+    else {
+      res.status(200).send(goals);
+    }
+  })
+}
+
+// Mark a given task as completed
 exports.makeTaskComplete = function(req, res) {
   var taskId = req.body.taskId;
   Task.update({ _id: taskId}, {completed: true}, function(err, result) {
@@ -126,7 +126,7 @@ exports.makeTaskComplete = function(req, res) {
   });
 }
 
-
+// Mark a given goal as completed
 exports.makeGoalComplete = function(req, res) {
   var goalId = req.body.goalId;
   Goal.update({ _id: goalId}, {completed: true}, function(err, result) {
@@ -135,6 +135,7 @@ exports.makeGoalComplete = function(req, res) {
   });
 }
 
+// Fetch all tasks of a given goal from db
 exports.getTasksOfGoal = function(req, res) {
   Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
     if (err) {throw err;}
@@ -142,6 +143,7 @@ exports.getTasksOfGoal = function(req, res) {
   });
 }
 
+// Fetch all tasks of a given task from db
 exports.getTasksOfTask = function(req, res) {
   Task.find({parentId: req.params.parentId}).exec(function(err, tasks){
     if (err) {throw err;}
@@ -149,15 +151,4 @@ exports.getTasksOfTask = function(req, res) {
   });
 }
 
-exports.isLoggedIn = function(req, res, next) {
-    //console.log(req.isAuthenticated())
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated()){
-      // res.redirect('/#/home/goals');
-      next();
-    } else {
-    // if they aren't redirect them to the home page
-    res.redirect('/'); 
-    }
-}
 
