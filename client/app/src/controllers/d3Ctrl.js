@@ -28,18 +28,25 @@ angular.module('myApp.controllers')
             "parentId": $scope.currNode.id
         }
       }).then(function(){
-        $state.reload();
-        // Add to front end scope.d3Data
-        // resursive function to traverse d3Data and inject the new Task at the right place
-        // var taskToStore = {
-        //    "id": "5814eec179e36cfba0ba72fe",
-        //    "title": $scope.newTask.title,
-        //    "children": [],
-        //    "completed": false, 
-        // };
-      // });
-    });
-  };
+        // Goals.getGoalsArray().then(function(array){
+        //   $scope.goals = array;
+        //   for (var i=0; i < $scope.goals.length; i++) {
+        //     if ($scope.goals[i].id === $stateParams.id) {
+        //       $scope.d3Data = $scope.goals[i];
+        //     }
+        //   } 
+        //   $state.reload();
+        //Add to front end scope.d3Data
+        //resursive function to traverse d3Data and inject the new Task at the right place
+        var taskToStore = {
+           "id": "5814eec179e36cfba0ba72fe",
+           "title": $scope.newTask.title,
+           "children": [],
+           "completed": false, 
+        };
+
+       });
+    };
 
     $scope.addGoal = function() {
         console.log('clicked')

@@ -41,7 +41,7 @@ exports.signup = function(req, res) {
 // Add a new goal to a given user
 exports.addGoal = function(req, res) {
   var title = req.body.title;
-  var userId = req.body.userId;
+  var userId = req.session.userId;
   var newGoal = new Goal({
     title: title,
     userId: userId,
@@ -51,7 +51,7 @@ exports.addGoal = function(req, res) {
     else {
       newGoal.goalId = newGoal._id;
       newGoal.save();
-      res.status(200).send(newGoal);
+      // res.status(200).send(newGoal);
       User.findOne({_id: userId}, function(err, user) {
         if (err) throw err;
         user.goals.push(newGoal._id);
@@ -161,36 +161,3 @@ exports.isLoggedIn = function(req, res, next) {
     }
 }
 
-// exports.getElemsOfGoal = function(req, res) {
-//   //set an empty output that will be populated with all descendandts of a given goalId
-//   var out = [];
-
-//   Goal.find({_id: req.params.id}).exec(goalSearchCB);
-
-//   function goalSearchCB(err, el){
-//     if (err) { throw err; }
-//     else {
-//       res.status(200);
-//       //adds goal to output
-//       out.push(el[0]);
-
-//       function addChildTasks(id) {
-
-//       }
-
-//       Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
-//         if (err) {throw err;}
-//         else {
-//           tasks.forEach(function(task) {
-//             out.push(task);
-//             addChildTasks(task.id);
-//           })
-//         }
-//       });
-
-//       out = goalTasks.length;
-
-//       res.send(out);
-//     }
-//   };
-// }

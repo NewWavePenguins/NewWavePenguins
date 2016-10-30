@@ -28,6 +28,15 @@ angular.module('myApp', [
       // }
    })
 
+     .state('home.goals.addGoal', {
+       url: '/addGoal',
+       templateUrl: '../views/goals.html',
+       controller: 'homeController'
+       // resolve: {
+       //   logincheck: checkLoggedin
+       // }
+    })
+
    .state('home.goals.id', {
      url: '/:id',
      templateUrl: '../views/goal.html',
