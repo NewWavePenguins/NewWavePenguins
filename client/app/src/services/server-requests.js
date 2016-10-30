@@ -10,7 +10,6 @@ angular.module('myApp.services',[])
     })
   };
 
-
   return {
   	getGoalsArray: getGoalsArray
   }
