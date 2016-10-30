@@ -12,9 +12,21 @@
       $scope.$apply();
     };
 
-    $scope.addTask = function () {
-      // $scope.d3Data.children[0].children.push({"title": $scope.newTask.title});
+    $scope.toggleCompleted = function(){
+      // Add to DB
+      $http({
+        method: 'POST',
+        url: '/toggleTaskCompleted',
+        data: {
+            "taskId": $scope.currNode.id
+        }
 
+      }).then(function(){
+        $state.reload();
+      });
+    };
+
+    $scope.addTask = function () {
       // Add to DB
       $http({
         method: 'POST',
@@ -25,19 +37,9 @@
         }
 
       }).then(function(){
-        console.log("reloding state");
         $state.reload();
-        // Add to front end scope.d3Data
-        // resursive function to traverse d3Data and inject the new Task at the right place
-        // var taskToStore = {
-        //    "id": "5814eec179e36cfba0ba72fe",
-        //    "title": $scope.newTask.title,
-        //    "children": [],
-        //    "completed": false,
-        // };
-      // });
-    });
-  };
+      });
+    };
 
     $scope.addGoal = function() {
         console.log('clicked')

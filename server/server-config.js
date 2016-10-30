@@ -39,12 +39,12 @@ app.get('/getGoals/:userId', handler.getGoals);
 app.post('/home/goals/addGoal', handler.isLoggedIn, handler.addGoal);
 app.post('/addTask', handler.addTask);
 app.get('/allGoals', handler.isLoggedIn, allGoals.generateGoalsArray); 
+app.post('/toggleTaskCompleted', handler.toggleTaskCompleted);
 
 app.post('/makeTaskComplete', handler.makeTaskComplete);
 app.post('/makeGoalComplete', handler.makeGoalComplete);
 app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
 app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
-app.post('/toggleTaskCompleted', handler.toggleTaskCompleted);
 
 app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/#/home/goals',

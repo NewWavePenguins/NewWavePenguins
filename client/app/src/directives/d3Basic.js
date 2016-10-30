@@ -41,15 +41,8 @@ angular.module('myApp.directives')
         }
       );
 
-      // watch for data changes and re-render
-      // scope.$watch('data', function(data) {
-      //   // console.log(newVals , oldVals)
-      //   return scope.render(data[0]);
-      // }, true);
-
       // Render the current
 
-      // d3.select(self.frameElement).style("height", "500px");
       root = scope.data;
       root.x0 = height / 2;
       root.y0 = 0;
