@@ -12,8 +12,21 @@
       $scope.$apply();
     };
 
-    $scope.addTask = function () {
+    $scope.toggleCompleted = function(){
+      // Add to DB
+      $http({
+        method: 'POST',
+        url: '/toggleTaskCompleted',
+        data: {
+            "taskId": $scope.currNode.id
+        }
 
+      }).then(function(){
+        $state.reload();
+      });
+    };
+
+    $scope.addTask = function () {
       // Add to DB
       $http({
         method: 'POST',
@@ -24,7 +37,6 @@
         }
 
       }).then(function(){
-        console.log("reloding state");
         $state.reload();
       });
     };
