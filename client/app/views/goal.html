@@ -4,7 +4,7 @@
     <div class="col-md-6 col-md-offset-3"></div>
   </div>
   <div class="row">
-    <div class="col-md-6 col-md-offset-3" ng-controller="d3Ctrl">
+    <div id="mainDiv" class="col-md-6 col-md-offset-3" ng-controller="homeController">
       <div class="curr-node">
         <div class="curr-node-title">
           {{currNode.title}}
@@ -21,7 +21,9 @@
         </div>
       </div>
       <h1>{{d3Data.title}}</h1>
-      <d3-tree data="d3Data" on-click="d3OnClick(item)"></d3-tree>
+      <div ng-if="d3Data">
+        <d3-tree data="d3Data" on-click="d3OnClick(item)"></d3-tree>
+      </div>
     </div>
   </div>
 </div>
