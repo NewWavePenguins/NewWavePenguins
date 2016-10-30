@@ -23,6 +23,7 @@
             "title" : $scope.newTask.title,
             "parentId": $scope.currNode.id
         }
+
       }).then(function(){
         console.log("reloding state");
         $state.reload();

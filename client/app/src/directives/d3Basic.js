@@ -88,11 +88,12 @@ angular.module('myApp.directives')
             .attr("class", "node")
             .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
             .on("click", function(d){
-              // render immediate children
-              click(d);
               // pass the item that was clicked as input argument to the 'on-click' callback function
               // defined in the d3-tree directive
               return scope.onClick({item: d});
+            }).on("dblclick", function(d){
+              // render immediate children 
+              click(d);
             });
 
           nodeEnter.append("circle")
