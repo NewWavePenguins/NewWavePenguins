@@ -24,6 +24,7 @@
             "parentId": $scope.currNode.id
         }
       }).then(function(){
+        console.log("reloding state");
         $state.reload();
         // Add to front end scope.d3Data
         // resursive function to traverse d3Data and inject the new Task at the right place
@@ -40,7 +41,6 @@
     $scope.addGoal = function() {
         console.log('clicked')
     }
-
   }
 
 

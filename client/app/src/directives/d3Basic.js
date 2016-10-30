@@ -48,6 +48,8 @@ angular.module('myApp.directives')
       // }, true);
 
       // Render the current
+
+      // d3.select(self.frameElement).style("height", "500px");
       root = scope.data;
       root.x0 = height / 2;
       root.y0 = 0;
@@ -170,8 +172,6 @@ angular.module('myApp.directives')
         //----------------------------------------------------------------------------------------------
 
       scope.render(root);
-
-      // d3.select(self.frameElement).style("height", "500px");
 
     } // end of link
   }; // end of return
