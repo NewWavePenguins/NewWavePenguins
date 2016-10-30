@@ -47,13 +47,8 @@ angular.module('myApp.directives')
       //   return scope.render(data[0]);
       // }, true);
 
-      // Render the current 
-      root = scope.data;
-      root.x0 = height / 2;
-      root.y0 = 0;
-      // -------------------------
 
-      // Toggle children on click.
+      // Toggle children display on click
       var click = function (d) {
         if (d.children) {
         d._children = d.children;
@@ -65,21 +60,23 @@ angular.module('myApp.directives')
         scope.render(d);
       };
 
-      // define render function
+      // -------------------------------------------------------------------------------------------------
+      // define render function 
+      // -------------------------------------------------------------------------------------------------
       scope.render = function(source){
 
-          // Compute the new tree layout.
+          // Compute the new tree layout
           var nodes = tree.nodes(root), 
             links = tree.links(nodes);
 
-          // Normalize for fixed-depth.
+          // Normalize for fixed-depth
           nodes.forEach(function(d) { d.y = d.depth * 180; });
 
-          // Update the nodes…
+          // Update the nodes
           var node = svg.selectAll("g.node")
             .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
-          // Enter any new nodes at the parent's previous position.
+          // Enter any new nodes at the parent's previous position
           var nodeEnter = node.enter().append("g")
             .attr("class", "node")
             .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
@@ -103,7 +100,7 @@ angular.module('myApp.directives')
             .text(function(d) { return d.title; })
             .style("fill-opacity", 1e-6);
 
-          // Transition nodes to their new position.
+          // Transition nodes to their new position
           var nodeUpdate = node.transition()
             .duration(duration)
             .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
@@ -145,12 +142,12 @@ angular.module('myApp.directives')
             return diagonal({source: o, target: o});
             });
 
-          // Transition links to their new position.
+          // Transition links to their new position
           link.transition()
             .duration(duration)
             .attr("d", diagonal);
 
-          // Transition exiting nodes to the parent's new position.
+          // Transition exiting nodes to the parent's new position
           link.exit().transition()
             .duration(duration)
             .attr("d", function(d) {
@@ -159,13 +156,18 @@ angular.module('myApp.directives')
             })
             .remove();
 
-          // Stash the old positions for transition.
+          // Stash the old positions for transition
           nodes.forEach(function(d) {
           d.x0 = d.x;
           d.y0 = d.y;
           });
         }
+        //----------------------------------------------------------------------------------------------
 
+      // Render the current 
+      root = scope.data;
+      root.x0 = height / 2;
+      root.y0 = 0;
       scope.render(root);
 
       // d3.select(self.frameElement).style("height", "500px");

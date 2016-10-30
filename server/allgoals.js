@@ -98,19 +98,13 @@ var singleTree = function(goalId){
 }; // end of singleTree
 
 exports.generateGoalsArray = function(req, res) {
-  //console.log('here');
+ 
   var outArr = [];
   var userId = req.session.userId;
 
   User.findOne({_id: userId}).exec(function(err, user){
     var idArr = user.goals;
     if (err) throw err;
-    // console.log(idArr);
-    // console.log(user);
-    // return user.goals.map(function(goalId){
-    //   return generateTree(goalId);
-    // });
-    // singleTree(someGoalId)
     var promises = [];
     for (var i=0; i< idArr.length; i++){
       promises.push(singleTree(idArr[i]))
