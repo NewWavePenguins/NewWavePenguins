@@ -44,22 +44,20 @@ app.post('/signup', passport.authenticate('local-signup', {
         failureRedirect : '/#/signup'
     }));
 app.post('/addTask', handler.addTask);
-app.post('/addGoal', handler.addGoal);
+app.post('/home/goals/addGoal', handler.isLoggedIn, handler.addGoal);
 
 app.put('/toggleTaskCompleted', handler.toggleTaskCompleted);
 app.put('/makeTaskComplete', handler.makeTaskComplete);
 app.put('/makeGoalComplete', handler.makeGoalComplete);
 app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
 app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
-// app.get('/elemsOfGoal/:id', handler.getElemsOfGoal);
+
+app.get('/allGoals', handler.isLoggedIn, allGoals.generateGoalsArray); // need a middleware here
 app.post('/login', passport.authenticate('local-login', {
         successRedirect : '/#/home/goals',
         failureRedirect : '/#/login',
         failureFlash : true
     }));
-
-app.get('/allGoals', handler.isLoggedIn, 
-allGoals.generateGoalsArray); // need a middleware here
 
 app.get('/loggedin', handler.isLoggedIn);
 app.get('/logout', function(req, res) {
