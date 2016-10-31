@@ -187,6 +187,7 @@ exports.makeGoalComplete = function(req, res) {
 // Fetch all tasks of a given goal from db
 exports.getTasksOfGoal = function(req, res) {
   Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
+console.log(tasks)
     if (err) {throw err;}
     else { res.status(200).send(tasks); }
   });

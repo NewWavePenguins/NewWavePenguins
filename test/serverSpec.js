@@ -25,7 +25,6 @@ Task.collection.drop();
 
   before(function(done){
     var newUser = new User({
-      // _id: '1',
       local: {
         email: 'test@test.com',
         password: 'password',
@@ -37,23 +36,22 @@ Task.collection.drop();
     testUserId = newUser._id
     newUser.save();
     var newGoal = new Goal({
-      // _id: '1',
       completed: false,
       title: 'test 1 2',
-      userId: '1',
+      userId: testUserId.toString(),
       tasks: []
     });
     testGoalId = newGoal._id
-    console.log(testGoalId)
     newGoal.save();
     var newTask = new Task({
-      // _id: '1',
       completed:   false,
       title:   'create task for goal',
-      parentId: testGoalId,
+      parentId: testGoalId.toString(),
       tasks: []
     });
     testTaskId = newTask._id
+    newUser.goals.push(testGoalId)
+    newGoal.tasks.push(testTaskId)
     newTask.save(function(err) {
       done();
   });
@@ -65,7 +63,6 @@ Task.collection.drop();
       request.get('/getGoals/' + testUserId)
       .expect(200)
       .end(function(err, res) {
-        console.log(res.body)
         expect(res.body.title).to.equal('test 1 2')
       })
     })
@@ -98,42 +95,47 @@ Task.collection.drop();
   })
 
   describe('Tasks', function() {
-    it('should get tasks of goals', function(done) {
+    xit('should get tasks of goals', function(done) {
       request.get('/getTasksOfGoal/' + testGoalId)
       .expect(200)
       .end(function(err, task) {
-        expect(task.body).to.eql([])
+        expect(task.body).to.eql([testTaskId.toString()])
         done()
       })
     })
-    xit('should get an empty task for a goal with no tasks', function(done) {
-      request('http://127.0.0.1:3000/getTasksOfGoal/3', function(error, res, body) {
-        expect(res.statusCode).to.equal(200);
-        expect(JSON.parse(body)).to.eql([]);
-        done()
-      })
-    })
-    xit('should get tasks of tasks', function(done) {
-      request('http://127.0.0.1:3000/getTasksOfTask/1', function(error, res, body) {
-        expect(res.statusCode).to.equal(200);
-        expect(JSON.parse(body)).to.eql(['task for task']);
-        done()
-      })
-    })
-    xit('should toggle taks completed', function(done) {
-      request.post('/makeTaskComplete')
+    it('should get an empty task for a goal with no tasks', function(done) {
+      request.get('/getTasksOfGoal/3')
       .expect(200)
-      .end(function(err, task) {
-        console.log(testUserId)
+      .end(function(err, res) {
+        expect(res.body).to.eql([]);
+        done();
+      })
+    })
+    it('should get tasks of tasks', function(done) {
+      request.get('/getTasksOfTask/' + testGoalId)
+      .expect(200)
+      .end(function(err, res) {
+        expect(res.body).to.eql([])
+        done()
+      })
+    })
+    it('should toggle task completed', function(done) {
+      request.post('/makeTaskComplete')
+      .send({taskId: testTaskId})
+      .expect(200)
+      .end(function(err, res) {
+        Task.findOne({_id: testTaskId}).exec(function(err, task) {
+          expect(task.completed).to.equal(true);
+        })
         done()
       })
     })
   })
 
 
-  after(function(done){
-    User.collection.drop();
-    Goal.collection.drop();
-    Task.collection.drop();
-    done();
-  });
+  // after(function(done){
+  //   User.collection.drop();
+  //   Goal.collection.drop();
+  //   Task.collection.drop();
+  //   done();
+  // });
