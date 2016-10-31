@@ -38,6 +38,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 app.get('/getGoals/:userId', handler.getGoals);
 app.post('/home/goals/addGoal', handler.isLoggedIn, handler.addGoal);
 app.post('/addTask', handler.addTask);
+app.post('/removeTask', handler.removeTask);
 app.get('/allGoals', handler.isLoggedIn, allGoals.generateGoalsArray); 
 app.post('/toggleTaskCompleted', handler.toggleTaskCompleted);
 

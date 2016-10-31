@@ -20,6 +20,9 @@
             Complete Selected Task <input type="checkbox" ng-model="currNode.completed" ng-change="toggleCompleted()">
           </form>
         </div>
+        <div class="remove-task-button">
+          <button ng-click="removeTask()">Remove Task</button>
+        </div>
       </div>
       <br><br>
       <h1>{{d3Data.title}}</h1>

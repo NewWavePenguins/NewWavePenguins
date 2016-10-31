@@ -5,7 +5,7 @@
     <input type="text" name="title" ng-model="newGoal.title" placeholder="add a new goal here...">
     <button type="submit" class="btn btn-info btn-sm" ng-click="addGoal()">Add</button>
   </form>
-  Your Goals
+  My Goals
   <ul id="vertical" class="clearfix">
 	  <li ng-repeat="goal in goals"><a ng-href="#/home/goals/{{goal.id}}">{{goal.title}}</a></li>
   </ul>

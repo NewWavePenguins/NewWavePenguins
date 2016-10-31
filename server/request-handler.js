@@ -54,7 +54,6 @@ exports.addTask = function(req, res) {
         if (err || !goal) {
           Task.findOne({_id: parentId}, function(err, task) {
             if (err) throw err;
-            console.log('task as parent', task.goalId);
             task.tasks.push(newTask._id);
             task.save(function(err, task) {
               if (err) throw err;
@@ -83,17 +82,56 @@ exports.addTask = function(req, res) {
 exports.toggleTaskCompleted = function(req, res) {
   var taskId = req.body.taskId;
 
-  var ourTask = Task.findOne({ _id: taskId}).exec(function(err, task) {
+  var currTask = Task.findOne({ _id: taskId}).exec(function(err, task) {
     if (err) {throw err;}
     else {
-      var ourTask = task;
-      Task.update({ _id: taskId}, {completed: !ourTask.completed}, function(err, result) {
+      var currTask = task;
+      Task.update({ _id: taskId}, {completed: !currTask.completed}, function(err, result) {
         if (err) {throw err;}
         else { res.status(200).send(result);}
       });
     }
   });
 }
+
+// Remove an existing task 
+exports.removeTask = function(req, res) {
+  var taskId =req.body.taskId;
+  
+  Task.findOne({ _id: taskId}).exec(function(err, task) {
+    if (err) {throw err;}
+    else {
+      var parentId = task.parentId;
+      Goal.findOne({_id: parentId}, function(err, goal) {
+        if (err || !goal) {
+          Task.findOne({_id: parentId}, function(err, parentTask) {
+            if (err) throw err;
+            // console.log('task as parent', task.goalId);
+            var index = parentTask.tasks.indexOf(taskId);
+            parentTask.tasks.splice(index, 1);
+            parentTask.save(function(){
+              Task.remove({ _id: taskId}, function(err) {
+                if (err) throw err;
+                res.status(200).send('');
+              });
+            });
+          });
+        } else {
+          var index = goal.tasks.indexOf(taskId);
+          goal.tasks.splice(index, 1);
+          goal.save(function(){
+            Task.remove({ _id: taskId}, function(err) {
+              if (err) throw err;
+              res.status(200).send('');
+            });
+          });
+        }
+      })
+    }
+  });
+
+}
+
 
 // Check if the user is logged in
 exports.isLoggedIn = function(req, res, next) {

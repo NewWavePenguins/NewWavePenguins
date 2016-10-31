@@ -49,9 +49,20 @@ angular.module('myApp.services',[])
       });
   };
 
+  var removeTask = function(taskId){
+    return $http({
+        method: 'POST',
+        url: '/removeTask',
+        data: {
+            "taskId" : taskId
+        }
+    })
+  };
+
   return {
     addTask: addTask,
-    toggleCompleted: toggleCompleted
+    toggleCompleted: toggleCompleted,
+    removeTask: removeTask
   }
 
 });
