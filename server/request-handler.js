@@ -7,6 +7,17 @@ var passport = require('passport');
 require('./passport')(passport);
 
 
+// Fetch goals for a given user
+exports.getGoals = function(req, res) {
+  var userId = req.params.userId;
+  Goal.find({userId: userId}).exec(function (err, goals){
+    if (err) { throw err }
+    else {
+      res.status(200).send(goals);
+    }
+  })
+};
+
 // Add new user
 exports.signup = function(req, res) {
   passport.authenticate('local-signup', {
@@ -140,7 +151,7 @@ exports.isLoggedIn = function(req, res, next) {
       next();
     } else {
     // if they aren't, redirect them to the home page
-    res.redirect('/'); 
+    res.redirect('/');
     }
 }
 
@@ -188,5 +199,3 @@ exports.getTasksOfTask = function(req, res) {
     else { res.status(200).send(tasks); }
   });
 }
-
-

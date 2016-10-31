@@ -4,6 +4,7 @@
   "description": "gourp project",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "repository": {
@@ -22,9 +23,9 @@
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
+    "chai-http": "^1.0.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
-    "ejs": "^2.5.2",
     "express": "^4.14.0",
     "express-partials": "^0.3.0",
     "express-session": "^1.14.1",
@@ -39,7 +40,9 @@
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
-    "request": "^2.75.0"
+    "request": "^2.75.0",
+    "should": "^11.1.1",
+    "supertest": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^3.2.0",

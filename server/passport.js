@@ -19,7 +19,7 @@ module.exports = function(passport) {
     // Local signup
 
   passport.use('local-signup', new LocalStrategy({
-    usernameField: 'email', passwordField: 'password', passReqToCallback: true // allows us to pass back the entire request to the callback
+    usernameField: 'email', passwordField: 'password', passReqToCallback: true
   }, function(req, email, password, done) {
         // asynchronous
       process.nextTick(function() {

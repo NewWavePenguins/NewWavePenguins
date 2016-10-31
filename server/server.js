@@ -35,17 +35,22 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 //routes
+// app.get('/test/:goalId', generateTree.generateTree);
+
 app.get('/getGoals/:userId', handler.getGoals);
 app.post('/home/goals/addGoal', handler.isLoggedIn, handler.addGoal);
 app.post('/addTask', handler.addTask);
 app.post('/removeTask', handler.removeTask);
-app.get('/allGoals', handler.isLoggedIn, allGoals.generateGoalsArray); 
+app.get('/allGoals', handler.isLoggedIn, allGoals.generateGoalsArray);
+
 app.post('/toggleTaskCompleted', handler.toggleTaskCompleted);
 
 app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/#/home/goals',
         failureRedirect : '/#/signup'
     }));
+app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
+// app.get('/elemsOfGoal/:id', handler.getElemsOfGoal);
 app.post('/login', passport.authenticate('local-login', {
         successRedirect : '/#/home/goals',
         failureRedirect : '/#/login',
@@ -60,7 +65,7 @@ app.get('/logout', function(req, res) {
 app.post('/makeTaskComplete', handler.makeTaskComplete);
 app.post('/makeGoalComplete', handler.makeGoalComplete);
 app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
-app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
+app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
 
 // listen
 app.set('port', 3000);
