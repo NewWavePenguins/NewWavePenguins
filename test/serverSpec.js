@@ -132,10 +132,26 @@ Task.collection.drop();
     })
   })
 
-
-  // after(function(done){
-  //   User.collection.drop();
-  //   Goal.collection.drop();
-  //   Task.collection.drop();
-  //   done();
-  // });
+  xdescribe('Auth', function() {
+    it('should add a user', function(done) {
+      request.post('/signup/')
+      .expect(200)
+      .send({'local.email': 'testothy@test.com', 'local.password': 't35t'})
+      .end(function(err, res) {
+        User.findOne({email: 'testothy@test.com'}).exec(function(err, user) {
+          expect(user)
+        })
+        done()
+      })
+    })
+    it('should log a user in', function(done) {
+      request.post('/login/')
+      .send({usernameField: 'testothy@test.com', passwordField: 't35t'})
+      .end(function(err, res) {
+        request.get('/loggedin/')
+        .expect(200)
+        .expect(res).to.equal(true);
+        done()
+      })
+    })
+  })

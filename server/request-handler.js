@@ -148,6 +148,7 @@ exports.removeTask = function(req, res) {
 exports.isLoggedIn = function(req, res, next) {
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()){
+      res.send(req.isAuthenticated())
       next();
     } else {
     // if they aren't, redirect them to the home page
@@ -187,7 +188,6 @@ exports.makeGoalComplete = function(req, res) {
 // Fetch all tasks of a given goal from db
 exports.getTasksOfGoal = function(req, res) {
   Task.find({parentId: req.params.goalId}).exec(function(err, tasks){
-console.log(tasks)
     if (err) {throw err;}
     else { res.status(200).send(tasks); }
   });
