@@ -41,11 +41,6 @@ app.post('/addTask', handler.addTask);
 app.get('/allGoals', handler.isLoggedIn, allGoals.generateGoalsArray); 
 app.post('/toggleTaskCompleted', handler.toggleTaskCompleted);
 
-app.post('/makeTaskComplete', handler.makeTaskComplete);
-app.post('/makeGoalComplete', handler.makeGoalComplete);
-app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
-app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
-
 app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/#/home/goals',
         failureRedirect : '/#/signup'
@@ -61,6 +56,10 @@ app.get('/logout', function(req, res) {
         res.redirect('/');
     });
 
+app.post('/makeTaskComplete', handler.makeTaskComplete);
+app.post('/makeGoalComplete', handler.makeGoalComplete);
+app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
+app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
 
 // listen
 app.set('port', 3000);
