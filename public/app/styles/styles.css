@@ -19,6 +19,10 @@
   stroke-width: 2px;
 }
 
+#app-name {
+  font-weight: bolder;
+}
+
 h1 {
   font-family: 'Slabo 27px', serif;
   text-align: center;

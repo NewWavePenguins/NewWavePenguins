@@ -98,11 +98,20 @@ exports.toggleTaskCompleted = function(req, res) {
     if (err) {throw err;}
     else {
       var currTask = task;
-      Task.update({ _id: taskId}, {completed: !currTask.completed}, function(err, updatedTask) {
+      Task.update({ _id: taskId}, {completed: !currTask.completed}, function(err, result) {
         if (err) {throw err;}
         else { 
-          
-          res.status(200).send(updatedTask);
+          if (!currTask.completed && currTask.tasks.length > 0) {
+            var subTaskPromises = [];
+            for (var i=0; i < currTask.tasks.length; i++){
+              subTaskPromises.push(makeTaskComplete(currTask.tasks[i]));
+            }
+            Promise.all(subTaskPromises).then(function(){
+             res.status(200).send(''); 
+            });
+          } else {
+            res.status(200).send('');
+          }
         }
       });
     }
