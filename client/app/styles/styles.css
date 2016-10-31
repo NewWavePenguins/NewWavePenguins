@@ -70,7 +70,7 @@ body {
 ul#horizontal  {
 /*  border: 1px solid #292929;*/
   margin: 0;
-  padding-left: 30px;
+  padding-left: 140px;
   width: 850px;
   margin-bottom: 50px;
 
@@ -196,13 +196,11 @@ ul#vertical li a:active {
   justify-content: flex-start
 }
 
-/*.goals {
-  display: flex;
-}*/
 
 #goal-tree {
   float: right;
 }
+
 
 
 
