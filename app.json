@@ -1,0 +1,7 @@
+{
+  "name": "MEAN Contact List Example",
+  "description": "gourp project",
+  "repository": "https://github.com/NewWavePenguins/NewWavePenguins",
+  "keywords": ["node", "express", "angular", "MEAN", "mongodb", "REST", "API"],
+  "addons": ["mongolab"]
+}
