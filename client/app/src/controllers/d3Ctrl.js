@@ -16,6 +16,7 @@
     $scope.addGoal = function() {
       Goals.addGoal($scope.newGoal.title)
       .then(function(){
+        console.log('INSIDE addGOAL, state', $state);
         $state.reload();
       });  
     };
