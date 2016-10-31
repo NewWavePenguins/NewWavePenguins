@@ -18,17 +18,27 @@
   stroke-width: 2px;
 }
 
+h1 {
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+}
+
+body {
+ font-family: "Times New Roman", Times, serif;
+}
+
 .curr-node {
 	border: solid;
 	border-width: 2px;
 	width: 300px;
 	position: relative;
+    -webkit-box-shadow: 0 3px 3px #3c3c40;
+     -moz-box-shadow: 0 3px 3px #3c3c40;
+          box-shadow: 0 3px 3px #3c3c40;
 
 }
 
 .curr-node-title {
-/*  background-color: #292929;*/
-/*  color: white;*/
   text-align: center;
   border-bottom: 1px solid black;
   border-top: 1px solid #3c3c3c;
@@ -57,14 +67,7 @@
 }
 
 
-h1 {
-  font-family: "Times New Roman", Times, serif;
-  text-align: center;
-}
 
-body {
- font-family: "Times New Roman", Times, serif;
-}
 
 
 ul#horizontal  {
@@ -211,17 +214,6 @@ ul li {
 /*.navigation li {
   float: left;
 }*/
-
-.navigation {
-  padding-left: 50px;
-}
-
-
-
-
-.goals {
-  padding-top: 30px;
-}
 
 #goal-tree {
   float: right;
