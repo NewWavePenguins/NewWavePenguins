@@ -3,7 +3,7 @@ var should = require('chai').should();
 var expect = require('chai').expect;
 var supertest = require('supertest');
 var request = supertest('http://127.0.0.1:3000')
-var express = require('..');
+var express = require('express');
 var mongoose = require('mongoose');
 var User = require('../server/db/models/User');
 var Goal = require('../server/db/models/Goal');
@@ -19,9 +19,6 @@ db.once('open', function () {
 
 
 
-User.collection.drop();
-Goal.collection.drop();
-Task.collection.drop();
 
   before(function(done){
     var newUser = new User({
@@ -35,6 +32,7 @@ Task.collection.drop();
     });
     testUserId = newUser._id
     newUser.save();
+
     var newGoal = new Goal({
       completed: false,
       title: 'test 1 2',
@@ -43,6 +41,7 @@ Task.collection.drop();
     });
     testGoalId = newGoal._id
     newGoal.save();
+
     var newTask = new Task({
       completed:   false,
       title:   'create task for goal',
@@ -50,45 +49,58 @@ Task.collection.drop();
       tasks: []
     });
     testTaskId = newTask._id
+    newTask.save();
+
+    var newTask2 = new Task({
+      completed:   false,
+      title:   'create task for goal',
+      parentId: testTaskId.toString(),
+      tasks: []
+    });
+    testTaskId2 = newTask2._id
     newUser.goals.push(newGoal)
     newGoal.tasks.push(testTaskId)
-    newTask.save(function(err) {
+    newTask.tasks.push(testTaskId2)
+    newTask2.save(function(err) {
       done();
   });
   })
 
 
   describe('Goals', function() {
-    xit('should GET goals', function(done) {
-      var newGoal = new Goal({
-        completed: false,
-        title: 'test 34',
-        userId: testUserId.toString(),
-        tasks: []
-      });
-      newGoal.save().then(function(error, data) {
+    it('should GET goals', function(done) {
         request.get('/getGoals/' + testUserId)
         .expect(200)
         .end(function(err, res) {
-          expect(res.body).to.equal('test 1 2')
+          expect(res.body).to.eql([
+            {
+              "__v": 0,
+              "_id": testGoalId.toString(),
+              "completed": false,
+              "tasks": [
+                testTaskId.toString()
+              ],
+              "title": "test 1 2",
+             "userId": testUserId.toString(),
+           }
+          ])
+      done()
         })
-      });
-
     })
+
     it('should create a new Goal', function (done) {
       request.post('/home/goals/addGoal/')
       .send({
-        title: 'create tests for greenfield',
-        userId: '1',
+        title: 'create tests for greenfield'
       })
       .end(function(err, res) {
         Goal.findOne({title: 'create tests for greenfield'}).exec(function(err, goal) {
-          if (err) { console.log(err); }
-          expect(goal.title).to.equal('create tests for greenfield');
+          expect(res.body).to.equal(goal);
         })
         done()
       })
     });
+
     it('should mark a goal complete', function(done) {
       request.post('/makeGoalComplete/')
       .send({goalId: testGoalId})
@@ -104,11 +116,22 @@ Task.collection.drop();
   })
 
   describe('Tasks', function() {
-    xit('should get tasks of goals', function(done) {
+    it('should get tasks of goals', function(done) {
       request.get('/getTasksOfGoal/' + testGoalId)
       .expect(200)
       .end(function(err, task) {
-        expect(task.body).to.eql([testTaskId.toString()])
+        expect(task.body).to.eql([
+          {
+            "__v": 0,
+            "_id": testTaskId.toString(),
+            "completed": false,
+            "parentId": testGoalId.toString(),
+            "tasks": [
+              testTaskId2.toString()
+            ],
+            "title": "create task for goal",
+          }
+        ])
         done()
       })
     })
@@ -121,10 +144,17 @@ Task.collection.drop();
       })
     })
     it('should get tasks of tasks', function(done) {
-      request.get('/getTasksOfTask/' + testGoalId)
+      request.get('/getTasksOfTask/' + testTaskId)
       .expect(200)
       .end(function(err, res) {
-        expect(res.body).to.eql([])
+        expect(res.body).to.eql([{
+          "__v": 0,
+          "_id": testTaskId2.toString(),
+          "completed": false,
+          "parentId": testTaskId.toString(),
+          "tasks": [],
+          "title": "create task for goal"
+        }])
         done()
       })
     })
@@ -164,3 +194,11 @@ Task.collection.drop();
       })
     })
   })
+
+// after(function(done) {
+//   User.remove({'local.email': 'test@test.com'}).exec();
+//   Goal.remove({_id: testGoalId}).exec();
+//   Task.remove({_id: testTaskId}).exec();
+//   Task.remove({_id: testTaskId2}).exec();
+//   done()
+// })

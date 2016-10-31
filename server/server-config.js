@@ -65,7 +65,7 @@ app.get('/logout', function(req, res) {
 app.post('/makeTaskComplete', handler.makeTaskComplete);
 app.post('/makeGoalComplete', handler.makeGoalComplete);
 app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
-app.get('/getTasksOfTask/:parentIdx', handler.getTasksOfTask);
+app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
 
 // listen
 app.set('port', 3000);
