@@ -148,7 +148,6 @@ exports.removeTask = function(req, res) {
 exports.isLoggedIn = function(req, res, next) {
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()){
-      res.send(req.isAuthenticated())
       next();
     } else {
     // if they aren't, redirect them to the home page

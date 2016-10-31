@@ -3,13 +3,13 @@ var should = require('chai').should();
 var expect = require('chai').expect;
 var supertest = require('supertest');
 var request = supertest('http://127.0.0.1:3000')
-var express = require('express');
+var express = require('..');
 var mongoose = require('mongoose');
 var User = require('../server/db/models/User');
 var Goal = require('../server/db/models/Goal');
 var Task = require('../server/db/models/Task');
 
-mongoose.connect('mongodb://localhost/greenfieldTest');
+mongoose.connect('mongodb://localhost/greenfield');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -50,7 +50,7 @@ Task.collection.drop();
       tasks: []
     });
     testTaskId = newTask._id
-    newUser.goals.push(testGoalId)
+    newUser.goals.push(newGoal)
     newGoal.tasks.push(testTaskId)
     newTask.save(function(err) {
       done();
@@ -60,11 +60,20 @@ Task.collection.drop();
 
   describe('Goals', function() {
     xit('should GET goals', function(done) {
-      request.get('/getGoals/' + testUserId)
-      .expect(200)
-      .end(function(err, res) {
-        expect(res.body.title).to.equal('test 1 2')
-      })
+      var newGoal = new Goal({
+        completed: false,
+        title: 'test 34',
+        userId: testUserId.toString(),
+        tasks: []
+      });
+      newGoal.save().then(function(error, data) {
+        request.get('/getGoals/' + testUserId)
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.body).to.equal('test 1 2')
+        })
+      });
+
     })
     it('should create a new Goal', function (done) {
       request.post('/home/goals/addGoal/')
