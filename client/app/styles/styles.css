@@ -9,7 +9,8 @@
 }
 
 .node text {
-  font: 12px sans-serif;
+  font-family: 'Slabo 27px', serif
+  font: 12px
 }
 
 .link {
@@ -19,12 +20,12 @@
 }
 
 h1 {
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Slabo 27px', serif;
   text-align: center;
 }
 
 body {
- font-family: "Times New Roman", Times, serif;
+ font-family: 'Slabo 27px', serif;;
 }
 
 .curr-node {
@@ -142,7 +143,8 @@ ul#vertical {
 /*  float: left;*/
   margin: 0;
   padding: 0;
-  width: 200px;
+  width: 175px;
+  text-align: center;
 /*  border: 1px solid #292929;
 
   -webkit-box-shadow: 0 0 5px #3c3c40;
@@ -202,9 +204,6 @@ ul#vertical li a:active {
   float: right;
 }*/
 
-#goal-tree {
-  float: right;
-}
 
 /*#goal-tree {
     line-height: 200px;
@@ -215,15 +214,15 @@ ul#vertical li a:active {
 
 
 /*#mainDiv {
+  float: right;
   display: flex;
   justify-content: space-between;
-}
+}*/
 
 
 #goal-tree {
-  display: flex;
-  justify-content: space-between
-}*/
+  float: right;
+}
 
 
 
