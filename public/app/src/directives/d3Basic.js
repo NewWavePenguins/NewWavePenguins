@@ -99,7 +99,7 @@ angular.module('myApp.directives')
             .attr("dy", ".35em")
             .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
             .text(function(d) { return d.title; })
-            .style("fill-opacity", 1e-6);
+            .style({"fill-opacity": 1e-6, "font-size": "18px"});
 
           // Transition nodes to their new position
           var nodeUpdate = node.transition()
@@ -110,7 +110,7 @@ angular.module('myApp.directives')
             .attr("r", 10)
             .style("fill", function(d) {
               if (d.completed) {
-                return "green";
+                return '#3CB371';
               } else {
                 return "#fff";
               }

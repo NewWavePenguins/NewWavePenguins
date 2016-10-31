@@ -15,7 +15,7 @@
 
 .link {
   fill: none;
-  stroke: #ccc;
+  stroke: #606060;
   stroke-width: 2px;
 }
 
@@ -32,7 +32,6 @@ body {
 
 .curr-node {
 	border: 2px solid #707070;;
-  /*border-radius: 15px;*/
   background-color: white;
 	width: 300px;
 	position: relative;
@@ -54,6 +53,8 @@ body {
   text-align: center;
   border-bottom: 1px solid black;
   padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .add-task {
@@ -62,10 +63,6 @@ body {
 	padding-left: 10px;
 	/*position: absolute;*/
 }
-
-/*.curr-node-title {
-	font-weight: bold;
-}*/
 
 .add-task-title,span {
 	padding-top: 5px;
@@ -110,10 +107,10 @@ ul#horizontal li a {
   border-right: 1px solid #323235;
   border-left: 1px solid rgba(255, 255, 255, 0.2);
 
-  background-image: -moz-linear-gradient(top, #868689, #868689);
-  background-image: -ms-linear-gradient(top, #868689, #868689);
-  background-image: -webkit-linear-gradient(top, #868689, #868689);
-  background-image: linear-gradient(top, #868689, #868689);
+  background-image: -moz-linear-gradient(top, #909090, #909090);
+  background-image: -ms-linear-gradient(top, #909090, #909090);
+  background-image: -webkit-linear-gradient(top, #909090, #909090);
+  background-image: linear-gradient(top, #909090, #909090);
 
   -webkit-box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.2), 0 1px 0px #292929;
      -moz-box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.2), 0 1px 0px #292929;
@@ -152,29 +149,22 @@ ul#horizontal li:last-child a  {
 
 /* ---------- Vertical --------*/
 ul#vertical {
-/*  float: left;*/
   margin: 0;
   padding: 0;
-  width: 175px;
+  width: 160px;
   text-align: center;
-/*  border: 1px solid #292929;
-
-  -webkit-box-shadow: 0 0 5px #3c3c40;
-     -moz-box-shadow: 0 0 5px #3c3c40;
-          box-shadow: 0 0 5px #3c3c40;*/
-
-
 }
 
 ul#vertical li  {
   list-style-type: none;
+  height: 60px;
 
-  background-image: -moz-linear-gradient(top, #535357, #3c3c3f);
-  background-image: -ms-linear-gradient(top, #535357, #3c3c3f);
-  background-image: -webkit-linear-gradient(top, #535357, #3c3c3f);
-  background-image: linear-gradient(top, #535357, #3c3c3f);
-
+  background-image: -moz-linear-gradient(top, #606060, #606060);
+  background-image: -ms-linear-gradient(top, #606060, #606060);
+  background-image: -webkit-linear-gradient(top, #606060, #606060);
+  background-image: linear-gradient(top, #606060, #606060);
 }
+
 ul#vertical li a  {
   border-bottom: 1px solid #292929;
   display: block;
@@ -189,7 +179,7 @@ ul#vertical li a  {
 
 ul#vertical li a:hover {
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
-  background-color: #59595c;
+  background-color: #989898;
 
   -webkit-box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.2), 0 1px 0px #292929;
       -moz-box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.2), 0 1px 0px #292929;
@@ -203,47 +193,8 @@ ul#vertical li a:active {
            box-shadow: inset 0 2px 3px rgba(0,0,0, 0.2);
 }
 
-/*
-.goal {
-  display: flex;
-  justify-content: flex-start
-}*/
-
-/*#mainDiv {
-  line-height: 200px;
-  height: 200px;
-  text-align: center;
-  float: right;
-}*/
-
-
-/*#goal-tree {
-    line-height: 200px;
-    height: 200px;
-    text-align: center;
-}*/
-
-
-
-/*#mainDiv {
-  float: right;
-  display: flex;
-  justify-content: space-between;
-}*/
-
-
 #goal-tree {
   float: right;
 }
 
-
-
-
-/*
-.goallist a { text-decoration: none; color:white; }
-.goallist a:visited { text-decoration: none; color:white; }
-.goallist a:hover { text-decoration: none; color:white; }
-.goallist a:focus { text-decoration: none; color:white; }
-.goallist a:hover { text-decoration: none; color:white; }
-*/
 
