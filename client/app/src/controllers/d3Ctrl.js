@@ -37,6 +37,14 @@
       });
     };
 
+    $scope.removeTask = function () {
+      // Add to DB
+      Tasks.removeTask($scope.currNode.id)
+      .then(function(){
+        $state.reload();
+      });
+    };
+
   }
 
 
