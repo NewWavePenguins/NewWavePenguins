@@ -3,8 +3,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 // request-handling dependencies
-var handler = require('./request-handler');
-var allGoals = require('./allgoals');
+var handler = require('./server/request-handler');
+var allGoals = require('./server/allgoals');
 // authentication dependencies
 var session = require('express-session');
 var passport = require('passport');
@@ -12,15 +12,15 @@ var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 // database dependencies
-var db = require('./db/config');
-var User = require('./db/models/User');
-var Goal = require('./db/models/Goal');
-var Task = require('./db/models/Task');
-require('./passport')(passport)
+var db = require('./server/db/config');
+var User = require('./server/db/models/User');
+var Goal = require('./server/db/models/Goal');
+var Task = require('./server/db/models/Task');
+require('./server/passport')(passport)
 
 // server
 var app = express();
-app.use(express.static(__dirname + '/../client/app'));
+app.use(express.static(__dirname + '/public/app'));
 
 // middlewares
 app.use(bodyParser.json());
