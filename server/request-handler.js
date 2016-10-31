@@ -4,6 +4,7 @@ var User = require('./db/models/User');
 var Goal = require('./db/models/Goal');
 var Task = require('./db/models/Task');
 var passport = require('passport');
+var Promise = require('bluebird');
 require('./passport')(passport);
 
 
@@ -93,13 +94,16 @@ exports.addTask = function(req, res) {
 exports.toggleTaskCompleted = function(req, res) {
   var taskId = req.body.taskId;
 
-  var currTask = Task.findOne({ _id: taskId}).exec(function(err, task) {
+  Task.findOne({ _id: taskId}).exec(function(err, task) {
     if (err) {throw err;}
     else {
       var currTask = task;
-      Task.update({ _id: taskId}, {completed: !currTask.completed}, function(err, result) {
+      Task.update({ _id: taskId}, {completed: !currTask.completed}, function(err, updatedTask) {
         if (err) {throw err;}
-        else { res.status(200).send(result);}
+        else { 
+          
+          res.status(200).send(updatedTask);
+        }
       });
     }
   });
@@ -166,11 +170,12 @@ exports.getGoals = function(req, res) {
 }
 
 // Mark a given task as completed
-exports.makeTaskComplete = function(req, res) {
-  var taskId = req.body.taskId;
-  Task.update({ _id: taskId}, {completed: true}, function(err, result) {
-    if (err) {throw err;}
-    else { res.status(200).send(result);}
+function makeTaskComplete(taskId) {
+  return new Promise(function(resolve, reject){
+    Task.update({ _id: taskId}, {completed: true}, function(err, result) {
+      if (err) { reject(err);}
+      else { resolve(result);}
+    });
   });
 }
 

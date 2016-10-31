@@ -62,10 +62,10 @@ app.get('/logout', function(req, res) {
         res.redirect('/');
     });
 
-app.post('/makeTaskComplete', handler.makeTaskComplete);
-app.post('/makeGoalComplete', handler.makeGoalComplete);
-app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
-app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
+// app.post('/makeTaskComplete', handler.makeTaskComplete);
+// app.post('/makeGoalComplete', handler.makeGoalComplete);
+// app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
+// app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
 
 // listen
 app.set('port', process.env.PORT || 3000);
