@@ -106,7 +106,6 @@ exports.removeTask = function(req, res) {
         if (err || !goal) {
           Task.findOne({_id: parentId}, function(err, parentTask) {
             if (err) throw err;
-            // console.log('task as parent', task.goalId);
             var index = parentTask.tasks.indexOf(taskId);
             parentTask.tasks.splice(index, 1);
             parentTask.save(function(){
