@@ -33,7 +33,7 @@ exports.addGoal = function(req, res) {
         if (err) throw err;
         user.goals.push(newGoal._id);
         user.save();
-        // res.status(200).end();
+        res.status(200).send(newGoal);
       })
     }
   })
