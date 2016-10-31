@@ -23,7 +23,7 @@ User.collection.drop();
 Goal.collection.drop();
 Task.collection.drop();
 
-  beforeEach(function(done){
+  before(function(done){
     var newUser = new User({
       // _id: '1',
       local: {
@@ -44,12 +44,13 @@ Task.collection.drop();
       tasks: []
     });
     testGoalId = newGoal._id
+    console.log(testGoalId)
     newGoal.save();
     var newTask = new Task({
       // _id: '1',
       completed:   false,
       title:   'create task for goal',
-      parentId: '1',
+      parentId: testGoalId,
       tasks: []
     });
     testTaskId = newTask._id
@@ -57,23 +58,18 @@ Task.collection.drop();
       done();
   });
   })
-  afterEach(function(done){
-    User.collection.drop();
-    Goal.collection.drop();
-    Task.collection.drop();
-    done();
-  });
+
 
   describe('Goals', function() {
     xit('should GET goals', function(done) {
-      request.get('/getGoals/1')
-      .set('Accept', 'application/json')
+      request.get('/getGoals/' + testUserId)
       .expect(200)
       .end(function(err, res) {
+        console.log(res.body)
         expect(res.body.title).to.equal('test 1 2')
       })
     })
-    xit('should create a new Goal', function (done) {
+    it('should create a new Goal', function (done) {
       request.post('/home/goals/addGoal/')
       .send({
         title: 'create tests for greenfield',
@@ -88,10 +84,13 @@ Task.collection.drop();
       })
     });
     it('should mark a goal complete', function(done) {
-      request.post('/makeGoalComplete/' + testGoalId)
+      request.post('/makeGoalComplete/')
+      .send({goalId: testGoalId})
       .expect(200)
       .end(function(err, res) {
-        // expect(res.body.completed).to.equal(true);
+        Goal.findOne({_id: testGoalId}).exec(function(err, goal) {
+          expect(goal.completed).to.equal(true);
+        })
         done()
       })
 
@@ -99,10 +98,11 @@ Task.collection.drop();
   })
 
   describe('Tasks', function() {
-    xit('should get tasks of goals', function(done) {
-      request('http://127.0.0.1:3000/getTasksOfGoal/1', function(error, res, body) {
-        expect(res.statusCode).to.equal(200);
-        expect(JSON.parse(body)).to.eql(['create task tests'])
+    it('should get tasks of goals', function(done) {
+      request.get('/getTasksOfGoal/' + testGoalId)
+      .expect(200)
+      .end(function(err, task) {
+        expect(task.body).to.eql([])
         done()
       })
     })
@@ -125,6 +125,15 @@ Task.collection.drop();
       .expect(200)
       .end(function(err, task) {
         console.log(testUserId)
+        done()
       })
     })
   })
+
+
+  after(function(done){
+    User.collection.drop();
+    Goal.collection.drop();
+    Task.collection.drop();
+    done();
+  });
