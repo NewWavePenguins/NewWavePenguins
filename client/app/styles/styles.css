@@ -67,13 +67,10 @@ body {
 }
 
 
-
-
-
 ul#horizontal  {
 /*  border: 1px solid #292929;*/
   margin: 0;
-  padding: 0;
+  padding-left: 30px;
   width: 850px;
   margin-bottom: 50px;
 
@@ -143,6 +140,7 @@ ul#horizontal li:last-child a  {
 
 /* ---------- Vertical --------*/
 ul#vertical {
+/*  float: left;*/
   margin: 0;
   padding: 0;
   width: 200px;
@@ -193,31 +191,20 @@ ul#vertical li a:active {
 }
 
 
-/*
-ul  {
-    margin: 0;
-    padding: 0;
-    width: 850px;
-    margin-bottom: 50px;
-
-    -webkit-box-shadow: 0 3px 3px #3c3c40;
-    -moz-box-shadow: 0 3px 3px #3c3c40;
-    box-shadow: 0 3px 3px #3c3c40;
+.goal {
+  display: flex;
+  justify-content: flex-start
 }
 
-ul li {
-    list-style: none;
-    float: left;
-    display: block;
-}
-
-/*.navigation li {
-  float: left;
+/*.goals {
+  display: flex;
 }*/
 
 #goal-tree {
   float: right;
 }
+
+
 
 /*
 .goallist a { text-decoration: none; color:white; }
