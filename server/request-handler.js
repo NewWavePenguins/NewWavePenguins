@@ -83,17 +83,31 @@ exports.addTask = function(req, res) {
 exports.toggleTaskCompleted = function(req, res) {
   var taskId = req.body.taskId;
 
-  var ourTask = Task.findOne({ _id: taskId}).exec(function(err, task) {
+  var currTask = Task.findOne({ _id: taskId}).exec(function(err, task) {
     if (err) {throw err;}
     else {
-      var ourTask = task;
-      Task.update({ _id: taskId}, {completed: !ourTask.completed}, function(err, result) {
+      var currTask = task;
+      Task.update({ _id: taskId}, {completed: !currTask.completed}, function(err, result) {
         if (err) {throw err;}
         else { res.status(200).send(result);}
       });
     }
   });
 }
+
+// Remove an existing task 
+exports.removetask = function(req, res) {
+  var taskId =req.body.taskId;
+  
+  var currTask = Task.remove({ _id: taskId}).exec(function(err) {
+    if (err) {throw err;}
+    else {
+ 
+    }
+  });
+
+}
+
 
 // Check if the user is logged in
 exports.isLoggedIn = function(req, res, next) {
