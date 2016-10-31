@@ -28,8 +28,7 @@ body {
 }
 
 .curr-node {
-	border: solid;
-	border-width: 2px;
+	border: 1px solid black;
 	width: 300px;
 	position: relative;
     -webkit-box-shadow: 0 3px 3px #3c3c40;
@@ -190,16 +189,43 @@ ul#vertical li a:active {
            box-shadow: inset 0 2px 3px rgba(0,0,0, 0.2);
 }
 
-
+/*
 .goal {
   display: flex;
   justify-content: flex-start
-}
+}*/
+
+/*#mainDiv {
+  line-height: 200px;
+  height: 200px;
+  text-align: center;
+  float: right;
+}*/
 
 
 #goal-tree {
   float: right;
 }
+
+/*#goal-tree {
+    line-height: 200px;
+    height: 200px;
+    text-align: center;
+}*/
+
+
+
+/*#mainDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#goal-tree {
+  display: flex;
+  justify-content: space-between
+}*/
+
 
 
 
