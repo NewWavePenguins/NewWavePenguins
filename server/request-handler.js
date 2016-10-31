@@ -29,11 +29,11 @@ exports.addGoal = function(req, res) {
     else {
       newGoal.goalId = newGoal._id;
       newGoal.save();
-      // res.status(200).send(newGoal);
       User.findOne({_id: userId}, function(err, user) {
         if (err) throw err;
         user.goals.push(newGoal._id);
         user.save();
+        // res.status(200).end();
       })
     }
   })
