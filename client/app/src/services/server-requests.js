@@ -10,8 +10,19 @@ angular.module('myApp.services',[])
     })
   };
 
+  var addGoal = function(title){
+    return $http({
+        method: 'POST',
+        url: '/home/goals/addGoal',
+        data: {
+            "title" : title,
+        }
+    })
+  }
+
   return {
-  	getGoalsArray: getGoalsArray
+  	getGoalsArray: getGoalsArray,
+    addGoal: addGoal
   }
 
 })

@@ -3,7 +3,7 @@ angular.module('home.controllers', ['ui.router', 'myApp.services'])
 
   Goals.getGoalsArray().then(function(array){
     $scope.goals = array;
-    addToD3($scope, $stateParams, $http, $state, Tasks);
+    addToD3($scope, $stateParams, $http, $state, Goals, Tasks);
   });
 
 });
