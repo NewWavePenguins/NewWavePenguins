@@ -68,7 +68,7 @@ app.get('/getTasksOfGoal/:goalId', handler.getTasksOfGoal);
 app.get('/getTasksOfTask/:parentId', handler.getTasksOfTask);
 
 // listen
-app.set('port', 3000);
+app.set('port', process.env.PORT || 3000);
 
 app.listen(app.get('port'), function () {
   console.log('Listening on port ' + app.get('port') );
