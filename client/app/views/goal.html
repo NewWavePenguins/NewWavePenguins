@@ -1,28 +1,30 @@
-<div>
+<div class="goal">
   <div class="row"></div>
   <div class="row">
     <div class="col-md-6 col-md-offset-3"></div>
   </div>
   <div class="row">
-    <div id="mainDiv" class="col-md-6 col-md-offset-3" ng-controller="homeController">
+  <br>
+    <div id="mainDiv" class="col-md-6 col-md-offset-2" ng-controller="homeController">
       <div class="curr-node">
         <div class="curr-node-title">
           {{currNode.title}}
         </div>
         <div class="add-task">
-          <span class="add-task-title"> -- Add Subtask</span><br>
+          <span class="add-task-title"> Add a subtask: </span><br>
           <span>Title: </span>
           <input type="text" ng-model="newTask.title" placeholder="add a new task here..."><button class="btn btn-info btn-sm" ng-click="addTask()">Add</button>
         </div>
         <div class="task-complete-checkbox">
           <form>
-            -- Task Completed? <input type="checkbox" ng-model="currNode.completed" ng-change="toggleCompleted()">
+            Complete Selected Task <input type="checkbox" ng-model="currNode.completed" ng-change="toggleCompleted()">
           </form>
         </div>
       </div>
+      <br><br>
       <h1>{{d3Data.title}}</h1>
       <div ng-if="d3Data">
-        <d3-tree data="d3Data" on-click="d3OnClick(item)"></d3-tree>
+        <d3-tree  data="d3Data" on-click="d3OnClick(item)"></d3-tree>
       </div>
     </div>
   </div>
