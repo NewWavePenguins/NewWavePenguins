@@ -1,14 +1,15 @@
 <div class="goals" class="col-md-6">
 
-  <div id="goal-tree" ui-view></div>  
-  
-  <ul class="goallist" style="list-style: none;">
-	  <li ng-repeat="goal in goals"><a ng-href="#/home/goals/{{goal.id}}">{{goal.title}}</a></li>
-  </ul>
-
-  <form class="form-inline" ng-controller="homeController">
+  <div id="goal-tree" ui-view></div>
+  <form class="addgoal" class="form-inline" ng-controller="homeController">
     <div >Add Goal</div>
     <input type="text" name="title" ng-model="newGoal.title" placeholder="add a new goal here...">
     <button type="submit" class="btn btn-info btn-sm" ng-click="addGoal()">Add</button>
   </form>
+
+  <ul id="vertical" class="clearfix">
+	  <li class="goalitem" ng-repeat="goal in goals"><a ng-href="#/home/goals/{{goal.id}}">{{goal.title}}</a></li>
+  </ul>
+
+
 </div>

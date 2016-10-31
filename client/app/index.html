@@ -32,15 +32,13 @@
       );
     </script>
     <h1>GoalTree</h1>
-
-    <div class="navigation">
-        <a ui-sref="home" ui-sref-active="active">Home</a>
-        <a ui-sref="home.goals" ui-sref-active="active">Goals</a>
-        <a ui-sref="login" ui-sref-active="active">Login</a>
-        <a ui-sref="signup" ui-sref-active="active">Signup</a>
-        <a href="/logout" ui-sref="login">Logout</a>
-    </div>
-
+    <ul  id="horizontal" class="navigation" class="clearfix">
+        <li><a ui-sref="home" ui-sref-active="active">Home</a></li>
+        <li><a ui-sref="home.goals" ui-sref-active="active">Goals</a></li>
+        <li><a ui-sref="login" ui-sref-active="active">Login</a></li>
+        <li><a ui-sref="signup" ui-sref-active="active">Signup</a></li>
+        <li><a href="/logout" ui-sref="login">Logout</a></li>
+    </ul>
     <div ui-view></div>
 
   </body>
