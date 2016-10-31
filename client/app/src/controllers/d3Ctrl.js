@@ -1,10 +1,11 @@
-  function addToD3($scope, $stateParams, $http, $state) {
+  function addToD3($scope, $stateParams, $http, $state, Tasks) {
     for (var i=0; i < $scope.goals.length; i++) {
       if ($scope.goals[i].id === $stateParams.id) {
         $scope.d3Data = $scope.goals[i];
       }
     }
-
+    
+    // Set default value for current node to be the mother goal object
     $scope.currNode = $scope.d3Data;
 
     $scope.d3OnClick = function(item){
@@ -12,31 +13,18 @@
       $scope.$apply();
     };
 
-    $scope.toggleCompleted = function(){
+    $scope.addTask = function () {
       // Add to DB
-      $http({
-        method: 'POST',
-        url: '/toggleTaskCompleted',
-        data: {
-            "taskId": $scope.currNode.id
-        }
-
-      }).then(function(){
+      Tasks.addTask($scope.newTask.title, $scope.currNode.id)
+      .then(function(){
         $state.reload();
       });
     };
 
-    $scope.addTask = function () {
+    $scope.toggleCompleted = function(){
       // Add to DB
-      $http({
-        method: 'POST',
-        url: '/addTask',
-        data: {
-            "title" : $scope.newTask.title,
-            "parentId": $scope.currNode.id
-        }
-
-      }).then(function(){
+      Tasks.toggleCompleted($scope.currNode.id)
+      .then(function(){
         $state.reload();
       });
     };
