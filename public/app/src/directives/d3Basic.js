@@ -41,13 +41,6 @@ angular.module('myApp.directives')
         }
       );
 
-      // Render the current
-
-      root = scope.data;
-      root.x0 = height / 2;
-      root.y0 = 0;
-      // -------------------------
-
       // Toggle children display on click
       var click = function (d) {
         if (d.children) {
@@ -164,6 +157,11 @@ angular.module('myApp.directives')
           });
         }
         //----------------------------------------------------------------------------------------------
+      
+      // Render the current
+      root = scope.data;
+      root.x0 = height / 2;
+      root.y0 = 0;
 
       scope.render(root);
 

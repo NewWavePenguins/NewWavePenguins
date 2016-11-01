@@ -9,11 +9,10 @@
       src="https://code.jquery.com/jquery-3.1.1.min.js"
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
       crossorigin="anonymous"></script>
-    <!-- <script src="lib/angular-flash.min.js"></script> -->
     <script src="src/app.js"></script>
     <script src="src/services/d3.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <script src="src/services/server-requests.js"></script>
     <script src="src/controllers/d3Ctrl.js"></script>
     <script src="src/controllers/home.js"></script>
@@ -23,6 +22,7 @@
 
   </head>
   <body ng-app="myApp">
+    <!-- Banner -->
     <script>
       $('body').append(
       '<a href="http://hackreactor.com"> \
@@ -32,6 +32,7 @@
       </a>'
       );
     </script>
+    <!-- App -->
     <h1 id="app-name">GoalTree</h1>
     <ul  id="horizontal" class="navigation" class="clearfix">
         <li><a ui-sref="home" ui-sref-active="active">Home</a></li>
@@ -41,6 +42,5 @@
         <li><a href="/logout" ui-sref="login">Logout</a></li>
     </ul>
     <div ui-view></div>
-
   </body>
 </html>

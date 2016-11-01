@@ -17,7 +17,6 @@ module.exports = function(passport) {
   });
 
     // Local signup
-
   passport.use('local-signup', new LocalStrategy({
     usernameField: 'email', passwordField: 'password', passReqToCallback: true
   }, function(req, email, password, done) {
@@ -65,7 +64,7 @@ module.exports = function(passport) {
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
 
       req.session.userId = user._id;
-      // console.log('req.body.email', req.body.email);
+    
       return done(null, user);
     });
   }));
