@@ -22,7 +22,6 @@
     };
 
     $scope.addTask = function () {
-      // Add to DB
       Tasks.addTask($scope.newTask.title, $scope.currNode.id)
       .then(function(){
         $state.reload();
@@ -30,7 +29,6 @@
     };
 
     $scope.toggleCompleted = function(){
-      // Add to DB
       Tasks.toggleCompleted($scope.currNode.id)
       .then(function(){
         $state.reload();
@@ -38,7 +36,6 @@
     };
 
     $scope.removeTask = function () {
-      // Add to DB
       Tasks.removeTask($scope.currNode.id)
       .then(function(){
         $state.reload();

@@ -73,12 +73,16 @@ body {
 }
 
 .task-complete-checkbox {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
 
+#goal-tree {
+  float: right;
+}
 
+/* ---------- Horizantal Nav Bar --------*/
 ul#horizontal  {
 /*  border: 1px solid #292929;*/
   margin: 0;
@@ -149,9 +153,7 @@ ul#horizontal li:last-child a  {
   border-right: none;
 }
 
-
-
-/* ---------- Vertical --------*/
+/* ---------- Vertical Goals List --------*/
 ul#vertical {
   margin: 0;
   padding: 0;
@@ -197,8 +199,5 @@ ul#vertical li a:active {
            box-shadow: inset 0 2px 3px rgba(0,0,0, 0.2);
 }
 
-#goal-tree {
-  float: right;
-}
 
 

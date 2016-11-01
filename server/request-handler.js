@@ -90,7 +90,7 @@ exports.addTask = function(req, res) {
 
 }
 
-// Make task complete or incomplete
+// Make task complete or incomplete 
 exports.toggleTaskCompleted = function(req, res) {
   var taskId = req.body.taskId;
 
@@ -101,6 +101,7 @@ exports.toggleTaskCompleted = function(req, res) {
       Task.update({ _id: taskId}, {completed: !currTask.completed}, function(err, result) {
         if (err) {throw err;}
         else { 
+          // FIXME Implement recursive function 
           if (!currTask.completed && currTask.tasks.length > 0) {
             var subTaskPromises = [];
             for (var i=0; i < currTask.tasks.length; i++){
